@@ -1,6 +1,7 @@
 # Introducción a diseño digital en HDL
 ### Estudiantes:
 -Yohel Alas Gómez
+
 -Melanie Espinoza Hernández
 
 ## 1. Abreviaturas y definiciones

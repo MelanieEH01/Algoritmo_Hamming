@@ -1,0 +1,164 @@
+$date
+	Tue Mar 25 01:25:40 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module tb_top_module $end
+$var wire 4 ! final_word [3:0] $end
+$var reg 7 " swi_word_rx [6:0] $end
+$var reg 4 # swi_word_tx [3:0] $end
+$scope module uut $end
+$var wire 7 $ swi_word_rx [6:0] $end
+$var wire 4 % swi_word_tx [3:0] $end
+$var wire 7 & word_c [6:0] $end
+$var wire 3 ' sindrome [2:0] $end
+$var wire 3 ( parity_o [2:0] $end
+$var wire 4 ) final_word [3:0] $end
+$var wire 3 * error_p [2:0] $end
+$var wire 4 + data_c [3:0] $end
+$scope module encoder_inst $end
+$var wire 1 , c0 $end
+$var wire 1 - c1 $end
+$var wire 1 . c2 $end
+$var wire 4 / swi_input [3:0] $end
+$var wire 3 0 parity_orig [2:0] $end
+$var wire 7 1 encoded_word [6:0] $end
+$upscope $end
+$scope module error_correction_inst $end
+$var wire 7 2 word_rx [6:0] $end
+$var wire 7 3 word_corr [6:0] $end
+$var wire 3 4 error_pos [2:0] $end
+$var wire 4 5 data_corr [3:0] $end
+$upscope $end
+$scope module error_detection_inst $end
+$var wire 1 6 c0_calc $end
+$var wire 1 7 c1_calc $end
+$var wire 1 8 c2_calc $end
+$var wire 7 9 word_rx [6:0] $end
+$var wire 3 : sindrome [2:0] $end
+$var wire 3 ; error_pos [2:0] $end
+$upscope $end
+$scope module led_display_inst $end
+$var wire 4 < data_corr [3:0] $end
+$var wire 4 = led [3:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b10 =
+b1101 <
+b101 ;
+b101 :
+b1110110 9
+18
+07
+16
+b1101 5
+b101 4
+b1100110 3
+b1110110 2
+b1100110 1
+b10 0
+b1101 /
+0.
+1-
+0,
+b1101 +
+b101 *
+b10 )
+b10 (
+b101 '
+b1100110 &
+b1101 %
+b1110110 $
+b1101 #
+b1110110 "
+b10 !
+$end
+#20000
+b1001 !
+b1001 )
+b1001 =
+b110 *
+b110 4
+b110 ;
+b110 +
+b110 5
+b110 <
+b110011 &
+b110011 3
+06
+17
+b110 '
+b110 :
+18
+1,
+1-
+b11 (
+b11 0
+0.
+b110011 1
+b10011 "
+b10011 $
+b10011 2
+b10011 9
+b110 #
+b110 %
+b110 /
+#40000
+b101 !
+b101 )
+b101 =
+b1010 +
+b1010 5
+b1010 <
+b111 *
+b111 4
+b111 ;
+b111 '
+b111 :
+16
+b10 (
+b10 0
+0,
+b1010010 &
+b1010010 3
+b1010010 1
+b10010 "
+b10010 $
+b10010 2
+b10010 9
+b1010 #
+b1010 %
+b1010 /
+#60000
+b101 !
+b101 )
+b101 =
+b10 *
+b10 4
+b10 ;
+b1010 +
+b1010 5
+b1010 <
+b1010010 &
+b1010010 3
+06
+17
+b10 '
+b10 :
+08
+b1010000 "
+b1010000 $
+b1010000 2
+b1010000 9
+#80000

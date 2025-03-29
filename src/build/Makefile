@@ -15,15 +15,15 @@ SOURCES := $(wildcard ../design/*.v ../design/*.sv) #Todas las fuentes .v o .sv 
 
 #Fuente de simulacion
 #aca va el testbench que quieran simular
-TESTBENCH = ../sim/tb_bin4_to_7seg_anodo.sv
+TESTBENCH = ../sim/tb_sindrome_to_7seg.sv
 
 # Constraints para el proyecto
 #aca va el archivo de constraints del proyecto
 CONSTRAINTS = ../constr/top_module.cst
 
 #el top se indica sin la extension .v, esto hace referencia al nombre que le pusieron al módulo y no al archivo en si.
-TOP_DESIGN = bin4_to_7seg_sec
-TOP_TB     = tb_bin4_to_7seg_anodo
+TOP_DESIGN = sindrome_to_7seg
+TOP_TB     = tb_sindrome_to_7seg
 
 #nombre del vcd que va a generar el tb
 VCD_FILE = bin4_to_7seg.vcd

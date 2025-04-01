@@ -6,11 +6,12 @@ module top_module(
 
 );
 
-    logic [2:0] parity_o;           
-    logic [2:0] sindrome;                  
-    logic [2:0] error_p;             
-    logic [6:0] word_c;          
-    logic [3:0] data_c;          
+    logic [2:0] parity_o;  //paridad de la palabra transmitida         
+    logic [2:0] sindrome;  //síndrome de error                
+    logic [2:0] error_p;  //posición del error           
+    logic [6:0] word_c;  //palabra corregida        
+    logic [3:0] data_c; //bits de datos de palabra corregida 
+    logic [6:0] seg; // Salida a los 7 segmentos         
 
     // Subsistema de lectura y codificación de la palabra transmitida
     module_encoder encoder_inst(
@@ -38,6 +39,15 @@ module top_module(
         .data_corr(data_c),   
         .led(final_word)              // Salida a los LEDs negada para que enciendan en la FPGA
     );
-
+    //Módulo de despliegue de síndrome en 7 segmentos
+    module_sindrome_to_7seg sindrome_to_7seg_inst(
+        .sin(sindrome), 
+        .seg(seg) 
+    );
+    //Módulo de despliegue de palabra corregida en 7 segmentos
+    module_bin4_to_7seg_sec bin4_to_7seg_sec_inst(
+        .bin(data_c), 
+        .seg(seg) 
+    );
 
 endmodule

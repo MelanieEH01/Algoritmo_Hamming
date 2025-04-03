@@ -11,7 +11,7 @@ module bin4_to_7seg_sec(
         D = bin[0];
 
         // Segmento a
-        seg[0] = ~(~D | ~A & B | B & C | A & ~B & ~C);
+        seg[0] = ~(~A & C | A & ~D | B & C | ~A & B & D | ~B & ~D | A & ~B & ~C);
 
         // Segmento b
         seg[1] = ~(~B & ~C | ~B & ~D | ~A & ~C & ~D | ~A & C & D | A & ~C & D);

@@ -1,34 +1,30 @@
 module bin4_to_7seg_sec(
-    input  logic [3:0] bin,
-    output logic [6:0] seg
+    input  logic [3:0] bin,   // 4 bits de entrada
+    output logic [6:0] seg    // Segmentos (activo en bajo)
 );
-    logic A, B, C, D;
-
+    
+    // Mapeo de 4 bits a 7 segmentos (común cátod - 0 activa el segmento)
     always_comb begin
-        A = bin[3];
-        B = bin[2];
-        C = bin[1];
-        D = bin[0];
 
-        // Segmento a
-        seg[0] = ~(~A & C | A & ~D | B & C | ~A & B & D | ~B & ~D | A & ~B & ~C);
 
-        // Segmento b
-        seg[1] = ~(~B & ~C | ~B & ~D | ~A & ~C & ~D | ~A & C & D | A & ~C & D);
-
-        // Segmento c
-        seg[2] = ~(~A & B | A & ~B | ~C & D | ~A & ~C | ~A & D);
-
-        // Segmento d
-        seg[3] = ~(~B & C & D| B & ~C & D | B & C & ~D | A & ~C & ~D | ~A & ~B & ~D);
-
-        // Segmento e
-        seg[4] = ~(A & B | A & C | A & ~D | C  & ~D | ~B & ~D);
-
-        // Segmento f
-        seg[5] = ~(A & ~B | A & C | B & ~D | ~C & ~D | ~A & B & ~C);
-
-        // Segmento g
-        seg[6] = ~(A & ~B | A & D | ~B & C | C & ~D | ~A & B & ~C);
+        case (bin)
+            4'b0000: seg = 7'b1000000; // 0
+            4'b0001: seg = 7'b1111001; // 1
+            4'b0010: seg = 7'b0100100; // 2
+            4'b0011: seg = 7'b0110000; // 3
+            4'b0100: seg = 7'b0011001; // 4
+            4'b0101: seg = 7'b0010010; // 5
+            4'b0110: seg = 7'b0000010; // 6
+            4'b0111: seg = 7'b1111000; // 7
+            4'b1000: seg = 7'b0000000; // 8
+            4'b1001: seg = 7'b0010000; // 9
+            4'b1010: seg = 7'b0001000; // A
+            4'b1011: seg = 7'b0000011; // b
+            4'b1100: seg = 7'b1000110; // C
+            4'b1101: seg = 7'b0100001; // d
+            4'b1110: seg = 7'b0000110; // E
+            4'b1111: seg = 7'b0001110; // F
+            default: seg = 7'b1111111; // Tods apagados
+        endcase
     end
 endmodule

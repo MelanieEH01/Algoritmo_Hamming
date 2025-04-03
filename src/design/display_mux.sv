@@ -34,6 +34,6 @@ module display_mux(
             seg = seg_sin;
             an = 2'b01;     // Activar primer display
         end
->>>>>>> 151222aaccc991b30af3dd2d53d2a1939dd3f4dc
+
     end
 endmodule

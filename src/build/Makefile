@@ -6,7 +6,7 @@ FAMILY = GW1N-9C
 DEVICE = GW1NR-LV9QN88PC6/I5
 
 #Nombre del proyecto... Acá ponen el nombre que deseen.
-PROYECT = tarea1_hamming_demo
+PROYECT = tarea1_hamming_Melanie_Yohel
 
 #Fuentes de diseno
 SOURCES := $(wildcard ../design/*.v ../design/*.sv) #Todas las fuentes .v o .sv que estan en design
@@ -15,18 +15,18 @@ SOURCES := $(wildcard ../design/*.v ../design/*.sv) #Todas las fuentes .v o .sv 
 
 #Fuente de simulacion
 #aca va el testbench que quieran simular
-TESTBENCH = ../sim/tb_sindrome_to_7seg.sv
+TESTBENCH = ../sim/tb_top_module.sv
 
 # Constraints para el proyecto
 #aca va el archivo de constraints del proyecto
 CONSTRAINTS = ../constr/top_module.cst
 
 #el top se indica sin la extension .v, esto hace referencia al nombre que le pusieron al módulo y no al archivo en si.
-TOP_DESIGN = sindrome_to_7seg
-TOP_TB     = tb_sindrome_to_7seg
+TOP_DESIGN = top_module
+TOP_TB     = tb_top_module
 
 #nombre del vcd que va a generar el tb
-VCD_FILE = bin4_to_7seg.vcd
+VCD_FILE = hamming_test.vcd
 
 all: synth pnr bitstream load
 

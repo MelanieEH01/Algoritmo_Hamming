@@ -1,44 +1,77 @@
-IO_LOC  "swi_word_rx[6]" 27;
+IO_LOC  "anodo[1]" 56;
+IO_PORT "anodo[1]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "anodo[0]" 55;
+IO_PORT "anodo[0]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[6]" 76;
+IO_PORT "seg[6]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[5]" 75;
+IO_PORT "seg[5]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[4]" 74;
+IO_PORT "seg[4]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[3]" 73;
+IO_PORT "seg[3]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[2]" 72;
+IO_PORT "seg[2]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[1]" 71;
+IO_PORT "seg[1]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "seg[0]" 70;
+IO_PORT "seg[0]" IO_TYPE=LVCMOS33;
+
+IO_LOC  "swi_word_rx[6]" 53;
 IO_PORT "swi_word_rx[6]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_rx[5]" 28;
+IO_LOC  "swi_word_rx[5]" 42;
 IO_PORT "swi_word_rx[5]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_rx[4]" 29;
+IO_LOC  "swi_word_rx[4]" 41;
 IO_PORT "swi_word_rx[4]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_rx[3]" 30;
+IO_LOC  "swi_word_rx[3]" 40;
 IO_PORT "swi_word_rx[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_rx[2]" 33;
+IO_LOC  "swi_word_rx[2]" 34;
 IO_PORT "swi_word_rx[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_rx[1]" 34;
+IO_LOC  "swi_word_rx[1]" 33;
 IO_PORT "swi_word_rx[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "swi_word_tx[0]" 39;
-IO_PORT "swi_word_tx[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
-
-IO_LOC  "swi_word_tx[1]" 36;
-IO_PORT "swi_word_tx[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
-
-IO_LOC  "swi_word_tx[2]" 37;
-IO_PORT "swi_word_tx[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
-
-IO_LOC  "swi_word_tx[3]" 38;
-IO_PORT "swi_word_tx[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
-
-IO_LOC  "swi_word_rx[0]" 40;
+IO_LOC  "swi_word_rx[0]" 30;
 IO_PORT "swi_word_rx[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "final_word[0]" 14;
-IO_PORT "final_word[0]" DRIVE=8 IO_TYPE=LVCMOS18;
+IO_LOC  "swi_word_tx[3]" 28;
+IO_PORT "swi_word_tx[3]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "final_word[1]" 13;
-IO_PORT "final_word[1]" DRIVE=8 IO_TYPE=LVCMOS18;
+IO_LOC  "swi_word_tx[2]" 27;
+IO_PORT "swi_word_tx[2]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "final_word[2]" 11;
-IO_PORT "final_word[2]" DRIVE=8 IO_TYPE=LVCMOS18;
+IO_LOC  "swi_word_tx[1]" 26;
+IO_PORT "swi_word_tx[1]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
 
-IO_LOC  "final_word[3]" 10;
-IO_PORT "final_word[3]" DRIVE=8 IO_TYPE=LVCMOS18;
+IO_LOC  "swi_word_tx[0]" 25;
+IO_PORT "swi_word_tx[0]" IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+
+IO_LOC  "led[0]" 14;
+IO_PORT "led[0]" DRIVE=8 IO_TYPE=LVCMOS18;
+
+IO_LOC  "led[1]" 13;
+IO_PORT "led[1]" DRIVE=8 IO_TYPE=LVCMOS18;
+
+IO_LOC  "led[2]" 11;
+IO_PORT "led[2]" DRIVE=8 IO_TYPE=LVCMOS18;
+
+IO_LOC  "led[3]" 10;
+IO_PORT "led[3]" DRIVE=8 IO_TYPE=LVCMOS18;
+
+IO_LOC  "btn" 3;
+IO_PORT "btn" IO_TYPE=LVCMOS18;
+
+IO_LOC  "clk" 52;
+IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;

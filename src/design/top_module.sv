@@ -3,7 +3,6 @@ module top_module(
     input  logic [3:0] swi_word_tx,  // 4 conmutadores para palabra de referencia
     input  logic [6:0] swi_word_rx,  // 7 conmutadores para palabra con posible error
     input  logic       btn,          // Botón para cambiar el display
-    input  logic       clk,          // Reloj del sistema (mantenido para compatibilidad)
     output logic [3:0] led,          // LEDs para mostrar palabra corregida
     output logic [6:0] seg,          // Segmentos del display (activo en bajo para ánodo común)
     output logic [1:0] anodo         // Ánodos para seleccionar display (activo en alto para ánodo común) 
@@ -51,7 +50,6 @@ module top_module(
   
     //Módulo de despliegue de síndrome en 7 segmentos
     display_mux display_mux_inst(
-        .clk(clk),
         .btn(btn),              // Botón para alternar entre displays
         .bin(data_corrected),   // Palabra corregida a mostrar
         .sin(sindrome),         // Síndrome a mostrar

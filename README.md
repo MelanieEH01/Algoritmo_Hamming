@@ -108,7 +108,7 @@ No se definen parámetros para este módulo.
 El módulo `module_decoder` recalcula los bits de paridad a partir de una palabra de 7 bits ingresada potencialmente con error. Calcula tres bits de paridad mediante operaciones XOR de ciertos bits de la palabra recibida, siguiendo el patrón de código Hamming para verificación de paridad.
 
 #### 3.2.5. Criterios de diseño
-![module_decoder]()
+![module_decoder](https://github.com/MelanieEH01/Images_README/blob/69ec1be5492ee66390c3db05843f07aff60c5606/Proyecto_1/module_decoder.png)
 
 
 ### 3.3 Módulo 3

@@ -65,7 +65,7 @@ No se definen parámetros para este módulo.
 Se implementa un codificador que genera bits de paridad para detección de errores. Extrae los 4 bits de datos de entrada, calcula tres bits de paridad mediante XOR entre bits específicos, construye la palabra codificada de 7 bits y verifica la paridad mediante XOR entre datos y bits de paridad, produciendo como salida los bits de paridad original.
 
 #### 3.1.5. Criterios de diseño
-![module_encoder] (https://github.com/MelanieEH01/Images_README/blob/bcfa4798ccc40abad09ca9f4234ed0e0bfdd7bc3/module_encoder-.png)
+![module_encoder](https://github.com/MelanieEH01/Images_README/blob/bcfa4798ccc40abad09ca9f4234ed0e0bfdd7bc3/module_encoder-.png)
 
 
 ### 3.2 Módulo 2

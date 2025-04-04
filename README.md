@@ -8,6 +8,7 @@
 - **FPGA**: Field Programmable Gate Arrays
 - **MSB**: Most Significant Bit
 - **LSB**: Least Significant Bit
+- **btn**: Botón
 
 ## 2. Referencias
 [1] David Harris y Sarah Harris. *Digital Design and Computer Architecture. RISC-V Edition.* Morgan Kaufmann, 2022. ISBN: 978-0-12-820064-3
@@ -141,7 +142,7 @@ No se definen parámetros para este módulo.
 El módulo `module_error_detection` detecta errores comparando los bits recalculados de paridad original codificada con los bits recalculados de la palabra recibida mediante XOR, generando un síndrome que indica la presencia y posición del bit erróneo.
 
 #### 3.3.5. Criterios de diseño
-![module_error_detection]()
+![module_error_detection](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_error_detection.png)
 
 
 ### 3.4 Módulo 4
@@ -217,7 +218,7 @@ No se definen parámetros para este módulo.
 El módulo `module_error_correction` primero extrae los cuatro bits de datos (i3, i2, i1, i0) de la palabra recibida con posible error, ubicados en posiciones específicas de la palabra de 7 bits. Luego realiza un análisis del síndrome de 3 bits para identificar con precisión qué bit contiene el error. Para esto, utiliza operaciones lógicas AND y NOT que decodifican el síndrome en cuatro señales binarias (sindrome_i0 a sindrome_i3), donde cada una se activa únicamente cuando el síndrome indica error en su bit correspondiente. Una vez identificado el bit erróneo, el módulo aplica operaciones XOR entre cada bit de datos y su señal de síndrome correspondiente: si la señal del síndrome está activa (1), el bit se invierte para corregirlo; si está inactiva (0), el bit permanece sin cambios. Finalmente, combina los cuatro bits ya corregidos en una salida de 4 bits.
 
 #### 3.4.5. Criterios de diseño
-![module_error_correction]()
+![module_error_correction](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_error_correction.png)
 
 
 ### 3.5 Módulo 5
@@ -248,34 +249,34 @@ No se definen parámetros para este módulo.
 El módulo `module_led_display` muestra la palabra corregida en los LEDs de la FPGA, invirtiendo los bits de datos corregidos ya que los LEDs típicamente se encienden con nivel bajo.
 
 #### 3.5.5. Criterios de diseño
-![leds]()
+![leds](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_led_display.png)
 
 
 ### 3.6 Módulo 6
 #### 3.6.1. bin4_to_7seg_sec
 ```SystemVerilog
 module bin4_to_7seg_sec(
-    input  logic [3:0] bin,   // 4 bits de entrada
-    output logic [6:0] seg    // Segmentos (activo en bajo)
+    input  logic [3:0] data_corrected,   // 4 bits de datos corregidos
+    output logic [6:0] seg              // Segmentos (activo en bajo)
 );
     
     // Mapeo de 4 bits a 7 segmentos (común cátod - 0 activa el segmento)
-    assign seg = (bin == 4'b0000) ? 7'b1000000 : // 0
-                 (bin == 4'b0001) ? 7'b1111001 : // 1
-                 (bin == 4'b0010) ? 7'b0100100 : // 2
-                 (bin == 4'b0011) ? 7'b0110000 : // 3
-                 (bin == 4'b0100) ? 7'b0011001 : // 4
-                 (bin == 4'b0101) ? 7'b0010010 : // 5
-                 (bin == 4'b0110) ? 7'b0000010 : // 6
-                 (bin == 4'b0111) ? 7'b1111000 : // 7
-                 (bin == 4'b1000) ? 7'b0000000 : // 8
-                 (bin == 4'b1001) ? 7'b0010000 : // 9
-                 (bin == 4'b1010) ? 7'b0001000 : // A
-                 (bin == 4'b1011) ? 7'b0000011 : // b
-                 (bin == 4'b1100) ? 7'b1000110 : // C
-                 (bin == 4'b1101) ? 7'b0100001 : // d
-                 (bin == 4'b1110) ? 7'b0000110 : // E
-                 (bin == 4'b1111) ? 7'b0001110 : // F
+    assign seg = (data_corrected == 4'b0000) ? 7'b1000000 : // 0
+                 (data_corrected == 4'b0001) ? 7'b1111001 : // 1
+                 (data_corrected == 4'b0010) ? 7'b0100100 : // 2
+                 (data_corrected == 4'b0011) ? 7'b0110000 : // 3
+                 (data_corrected == 4'b0100) ? 7'b0011001 : // 4
+                 (data_corrected == 4'b0101) ? 7'b0010010 : // 5
+                 (data_corrected == 4'b0110) ? 7'b0000010 : // 6
+                 (data_corrected == 4'b0111) ? 7'b1111000 : // 7
+                 (data_corrected == 4'b1000) ? 7'b0000000 : // 8
+                 (data_corrected == 4'b1001) ? 7'b0010000 : // 9
+                 (data_corrected == 4'b1010) ? 7'b0001000 : // A
+                 (data_corrected == 4'b1011) ? 7'b0000011 : // b
+                 (data_corrected == 4'b1100) ? 7'b1000110 : // C
+                 (data_corrected == 4'b1101) ? 7'b0100001 : // d
+                 (data_corrected == 4'b1110) ? 7'b0000110 : // E
+                 (data_corrected == 4'b1111) ? 7'b0001110 : // F
                  7'b1111111;  // default: Todos apagados
 
 endmodule
@@ -286,7 +287,7 @@ No se definen parámetros para este módulo.
 
 #### 3.6.3. Entradas y salidas:
 ###### Entradas:
-- `bin[3:0]`: Recibe el valor binario de 4 bits a mostrar en el display.
+- `data_corrected[3:0]`: Recibe el valor binario de 4 bits a mostrar en el display.
 ###### Salidas:
 - `seg[6:0]`: Configura los segmentos del display, donde cada bit controla un segmento específico (activo en bajo).
 
@@ -294,26 +295,26 @@ No se definen parámetros para este módulo.
 El módulo `bin4_to_7seg_sec` implementa un decodificador de 4 bits a 7 segmentos, donde un 0 en la salida activa el segmento correspondiente. Utiliza una serie de operadores condicionales ternarios anidados para mapear cada valor binario de 4 bits a su representación específica en un display de 7 segmentos. El módulo soporta la representación de todos los dígitos hexadecimales (0-9 y A-F). Cada bit de salida controla un segmento específico del display, y la combinación de estos bits encendidos o apagados forma el patrón visual del número o letra. Si se recibe un valor no definido, todos los segmentos se apagan por defecto.
 
 #### 3.6.5. Criterios de diseño
-![bin_7seg]()
+![bin_7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/bin4_to_7seg_sec.png)
 
 
 ### 3.7 Módulo 7
 #### 3.7.1. sindrome_to_7seg
 ```SystemVerilog
 module sindrome_to_7seg(
-    input  logic [2:0] sin,   // Síndrome de 3 bits
+    input  logic [2:0] sindrome,   // Síndrome de 3 bits
     output logic [6:0] seg    // Segmentos (activo en bajo)
 );
     
     // Mapeo de síndrome a 7 segmentos (común cát - 0 activa el segmento)
-    assign seg = (sin == 3'b000) ? 7'b1000000 : // 0
-                 (sin == 3'b001) ? 7'b1111001 : // 1
-                 (sin == 3'b010) ? 7'b0100100 : // 2
-                 (sin == 3'b011) ? 7'b0110000 : // 3
-                 (sin == 3'b100) ? 7'b0011001 : // 4
-                 (sin == 3'b101) ? 7'b0010010 : // 5
-                 (sin == 3'b110) ? 7'b0000010 : // 6
-                 (sin == 3'b111) ? 7'b1111000 : // 7
+    assign seg = (sindrome == 3'b000) ? 7'b1000000 : // 0
+                 (sindrome == 3'b001) ? 7'b1111001 : // 1
+                 (sindrome == 3'b010) ? 7'b0100100 : // 2
+                 (sindrome == 3'b011) ? 7'b0110000 : // 3
+                 (sindrome == 3'b100) ? 7'b0011001 : // 4
+                 (sindrome == 3'b101) ? 7'b0010010 : // 5
+                 (sindrome == 3'b110) ? 7'b0000010 : // 6
+                 (sindrome == 3'b111) ? 7'b1111000 : // 7
                 7'b1111111;  // default: segmentos apagados
 
 endmodule
@@ -324,7 +325,7 @@ No se definen parámetros para este módulo.
 
 #### 3.7.3. Entradas y salidas:
 ###### Entradas:
-- `sin[2:0]`: Recibe el síndrome de 3 bits a mostrar en el display.
+- `sindrome[2:0]`: Recibe el síndrome de 3 bits a mostrar en el display.
 ###### Salidas:
 - `seg[6:0]`: Configura los segmentos del display para representar el valor del síndrome (activo en bajo).
 
@@ -332,38 +333,39 @@ No se definen parámetros para este módulo.
 El módulo `sindrome_to_7seg` funciona como un decodificador específico para convertir un valor de síndrome de 3 bits en una representación de 7 segmentos para displays de cátodo común. Utiliza una estructura de operadores condicionales ternarios anidados para mapear cada uno de los ocho posibles valores del síndrome (000 a 111) a su correspondiente configuración de segmentos. Al igual que en el módulo `bin4_to_7seg_sec`, un 0 en cada bit de la salida activa el segmento respectivo del display.
 
 #### 3.7.5. Criterios de diseño
-![sin_7seg]()
+![sin_7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/sindrome_to_7seg.png)
 
 
 ### 3.8 Módulo 8
 #### 3.8.1. display_mux
 ```SystemVerilog
+
 module display_mux(
     input  logic       btn,      // Botón para seleccionar display
-    input  logic [3:0] bin,      // Valor binario (palabra corregida)
-    input  logic [2:0] sin,      // Síndrome
+    input  logic [3:0] data_corrected,      // Valor binario (palabra corregida)
+    input  logic [2:0] sindrome,      // Síndrome
     output logic [6:0] seg,      // Segmentos (compartidos entre displays)
     output logic [1:0] an        // Ánodos (selección de display)
 );
     
     // Señales temporales para los segmentos
-    logic [6:0] seg_bin;  // 7 segmentos para valor binario
+    logic [6:0] seg_data;  // 7 segmentos para valor binario
     logic [6:0] seg_sin;  // 7 segmentos para síndrome
     
     // Instanciar convertidores de 7 segmentos
     sindrome_to_7seg sindrome_to_7seg_inst(
-        .sin(sin),
+        .sindrome(sindrome),
         .seg(seg_sin)
     );
     
     bin4_to_7seg_sec bin4_to_7seg_sec_inst(
-        .bin(bin),
-        .seg(seg_bin)
+        .data_corrected(data_corrected),
+        .seg(seg_data)
     );
     
     // Lógica combinacional basada en el estado del botón usando multiplexores 2:1
     
-    assign seg = btn ? seg_sin : seg_bin;       // Para los segmentos: si btn=1 selecciona seg_sin, si btn=0 selecciona seg_bin
+    assign seg = btn ? seg_sin : seg_data;       // Para los segmentos: si btn=1 selecciona seg_sin, si btn=0 selecciona seg_bin
     
     assign an = btn ? 2'b10 : 2'b01;        // Para los ánodos: si btn=1 selecciona 2'b10, si btn=0 selecciona 2'b01
 
@@ -377,8 +379,8 @@ No se definen parámetros para este módulo.
 #### 3.8.3. Entradas y salidas:
 ###### Entradas:
 - `btn`: Recibe la señal del botón para alternar entre mostrar el síndrome o la palabra corregida.
-- `bin[3:0]`: Recibe el valor binario de la palabra corregida.
-- `sin[2:0]`: Recibe el valor del síndrome.
+- `data_corrected[3:0]`: Recibe el valor binario de la palabra corregida.
+- `sindrome[2:0]`: Recibe el valor del síndrome.
 ###### Salidas:
 - `seg[6:0]`: Configura los segmentos del display según la información seleccionada.
 - `an[1:0]`: Controla qué display se activa, donde an[0] corresponde al primer display y an[1] al segundo.
@@ -387,7 +389,7 @@ No se definen parámetros para este módulo.
 El módulo `display_mux` implementa un sistema de multiplexado para controlar dos displays de 7 segmentos usando una sola salida física. Primero instancia dos convertidores: sindrome_to_7seg para generar los patrones de segmentos del síndrome de 3 bits, y bin4_to_7seg_sec para convertir la palabra binaria corregida de 4 bits a su representación en 7 segmentos. Luego, utiliza multiplexores 2:1 controlados por la entrada de botón (btn) para seleccionar qué señales enviar a las salidas. Para los segmentos (seg), selecciona seg_sin cuando el botón está presionado (btn=1) o seg_bin cuando no lo está (btn=0). Simultáneamente, para los ánodos (an), selecciona activar el segundo display (an=10) cuando el botón está presionado o el primer display (an=01) cuando no lo está. Esta implementación permite al usuario alternar la visualización entre el valor del síndrome y la palabra corregida con solo presionar un botón.
 
 #### 3.8.5. Criterios de diseño
-![7seg]()
+![7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/display_mux.png)
 
 
 ### 3.9 Módulo 9
@@ -460,15 +462,20 @@ No se definen parámetros para este módulo.
 
 #### 3.9.3. Entradas y salidas:
 ###### Entradas:
-- `data_corrected[3:0]`: Recibe la palabra de 4 bits ya corregida.
+- `swi_word_tx[3:0]`: Se configura mediante interruptores para la palabra original a transmitir.
+- `swi_word_rx[6:0]`: Se configura mediante interruptores para simular la palabra recibida con posible error.
+- `btn`: Controla qué información se muestra en los displays (síndrome o palabra corregida).
 ###### Salidas:
-- `led`: Se establece la salida invertida hacia los LEDs, donde led[0] corresponde al LSB y led[3] al MSB.
+- `led[3:0]`: Muestra la palabra corregida en los LEDs de la FPGA.
+- `seg[6:0]`: Controla los segmentos del display seleccionado.
+- `anodo[1:0]`: Selecciona cuál de los displays se activa para mostrar información.
+
 
 #### 3.9.4. Descripción del módulo
-
+Integra todos los módulos anteriores para formar el sistema completo de detección y corrección de errores, conectando el codificador, decodificador, detector de errores, corrector de errores, controlador de LEDs y multiplexor de displays para implementar un código Hamming (7,4) que puede detectar y corregir un solo error de bit en una palabra de 7 bits.
 
 #### 3.9.5. Criterios de diseño
-![leds]()
+![top](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/top_module.png)
 
 #### 3.9.6. Testbench
 Descripción y resultados de las pruebas hechas

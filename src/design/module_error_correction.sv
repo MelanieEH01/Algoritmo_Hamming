@@ -1,14 +1,14 @@
 module module_error_correction(
-    input  logic [6:0] word_error,        // Palabra recibida (posiblemente con error)
+    input  logic [6:0] switch_error,        // Palabra recibida (posiblemente con error)
     input  logic [2:0] sindrome,          // Síndrome de error
     output logic [3:0] data_corrected     // Datos de la palabra corregida
 );
     // Extraer los bits de datos sin corregir
     logic i0, i1, i2, i3;
-    assign i0 = word_error[2];  // Bit i0
-    assign i1 = word_error[4];  // Bit i1
-    assign i2 = word_error[5];  // Bit i2
-    assign i3 = word_error[6];  // Bit i3
+    assign i0 = switch_error[2];  // Bit i0
+    assign i1 = switch_error[4];  // Bit i1
+    assign i2 = switch_error[5];  // Bit i2
+    assign i3 = switch_error[6];  // Bit i3
     
     // Generación de señales para detectar cada síndrome específico
     // Usando compuertas AND y NOT para las comparaciones

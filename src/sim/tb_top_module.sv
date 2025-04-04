@@ -15,7 +15,6 @@ module tb_top_module;
         .swi_word_tx(swi_word_tx),
         .swi_word_rx(swi_word_rx),
         .btn(btn),
-        .clk(clk),
         .led(led),
         .seg(seg),
         .anodo(anodo)

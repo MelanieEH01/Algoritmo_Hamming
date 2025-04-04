@@ -36,7 +36,7 @@ module top_module(
 
     // Subsistema de corrección de error sobre la palabra recibida
     module_error_correction error_correction_inst(
-        .word_error(swi_word_rx),
+        .switch_error(swi_word_rx),
         .sindrome(sindrome),        
         .data_corrected(data_corrected)      
     );
@@ -51,8 +51,8 @@ module top_module(
     //Módulo de despliegue de síndrome en 7 segmentos
     display_mux display_mux_inst(
         .btn(btn),              // Botón para alternar entre displays
-        .bin(data_corrected),   // Palabra corregida a mostrar
-        .sin(sindrome),         // Síndrome a mostrar
+        .data_corrected(data_corrected),   // Palabra corregida a mostrar
+        .sindrome(sindrome),         // Síndrome a mostrar
         .seg(seg),              // Segmentos del display
         .an(anodo)              // Selección de display
     );

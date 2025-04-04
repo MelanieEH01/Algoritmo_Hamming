@@ -6,7 +6,6 @@ module bin4_to_7seg_sec(
     // Mapeo de 4 bits a 7 segmentos (común cátod - 0 activa el segmento)
     always_comb begin
 
-
         case (bin)
             4'b0000: seg = 7'b1000000; // 0
             4'b0001: seg = 7'b1111001; // 1

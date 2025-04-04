@@ -22,17 +22,11 @@ module display_mux(
         .seg(seg_bin)
     );
     
-    // Lógica combinacional basada en el estado del botón
-    always_comb begin
-        if (btn) begin
-            // Botón presionado: mostrar síndrome
-            seg = seg_sin;
-            an = 2'b10;     // Activar segundo display
-        end else begin
-            // Botón no presionado: mostrar valor binario
-            seg = seg_bin;
-            an = 2'b01;     // Activar primer display
-        end
+    // Lógica combinacional basada en el estado del botón usando multiplexores 2:1
+    
+    assign seg = btn ? seg_sin : seg_bin;       // Para los segmentos: si btn=1 selecciona seg_sin, si btn=0 selecciona seg_bin
+    
+    assign an = btn ? 2'b10 : 2'b01;        // Para los ánodos: si btn=1 selecciona 2'b10, si btn=0 selecciona 2'b01
 
-    end
+
 endmodule

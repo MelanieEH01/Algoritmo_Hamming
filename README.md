@@ -659,8 +659,7 @@ En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retras
 
 Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{12,35 \text{ MHz} - 12,5 \text{ MHz}}{12,5 \text{ MHz}}\right| \times 100\% = 1,2\%$$
-$$\text{Porcentaje Error} = 1,124%$$
+$$\text{Porcentaje Error} = \left|\frac{12.35 \text{ MHz} - 12.5 \text{ MHz}}{12.5 \text{ MHz}}\right| \times 100\% = 1.2\%$$
 
 Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
 
@@ -668,11 +667,11 @@ A partir de la frecuencia experimental medida, podemos calcular el tiempo de pro
 
 $$t_p = \frac{1}{2 \times N \times f}$$ 
 
-$$t_p = \frac{1}{2 \times 5 \times 12,35\text{ MHz}}= 8,09\text{ ns} $$
+$$t_p = \frac{1}{2 \times 5 \times 12.35\text{ MHz}}= 8.09\text{ ns} $$
 
 Teniendo como porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1,124%$$
+$$\text{Porcentaje Error} = \left|\frac{8.09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1.124%$$
 
 
 ### Resultados para un Oscilador de 3 Inversores
@@ -681,17 +680,17 @@ $$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ 
 
 Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22,47 MHz. Comparando este valor con la frecuencia teórica, podemos determinar el porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{22,47\text{ MHz} - 20,83 \text{ MHz}}{20,83 \text{ MHz}}\right| \times 100= 7,87\%$$
+$$\text{Porcentaje Error} = \left|\frac{22.47\text{ MHz} - 20.83 \text{ MHz}}{20.83 \text{ MHz}}\right| \times 100= 7.87\%$$
 
 Este porcentaje indica una buena correspondencia entre la predicción teórica y el comportamiento real del circuito, considerando las variaciones típicas en los parámetros de fabricación.
 
 A partir de la frecuencia experimental medida, podemos calcular el tiempo de propagación promedio real por inversor:
 
-$$t_p = \frac{1}{2 \times 3 \times 23,28\text{ MHz}} = 7,16\text{ns} $$
+$$t_p = \frac{1}{2 \times 3 \times 23.28\text{ MHz}} = 7.16\text{ns} $$
 
 Teniendo como porcentaje de error:
 
-$$\text{Porcentaje Error} = {\left|\frac{7,16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%} = 1,124%$$
+$$\text{Porcentaje Error} = {\left|\frac{7.16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%} = 1.124%$$
 
 
 #### Cable de 1 Metro
@@ -700,7 +699,7 @@ $$\text{Porcentaje Error} = {\left|\frac{7,16 \text{ns} - 8 \text{ ns}}{8 \text{
 
 Al introducir un cable de 1 metro en el oscilador de anillo, se observa un impacto significativo en el comportamiento del circuito. El tiempo de retardo promedio experimenta un cambio:
 
-$$t_p = \frac{1}{2 \times 3 \times 19,79\text{ MHz}} = 8,42\text{ns} $$
+$$t_p = \frac{1}{2 \times 3 \times 19.79\text{ MHz}} = 8.42\text{ns} $$
 
 La incorporación de un cable de 1 metro al oscilador de anillo produce un incremento en el tiempo de retardo de 7.16 ns a 8.42 ns debido a la introducción de elementos parásitos distribuidos. Este fenómeno se explica mediante el modelo de línea de transmisión RC, donde la capacitancia distribuida requiere tiempo adicional para cargarse y descargarse, mientras que la inductancia del cable genera efectos de rebote en las transiciones.
 Esta carga capacitiva e inductiva, combinada con la resistencia óhmica del conductor, limita la corriente disponible para las transiciones de estado, ralentizando efectivamente la propagación de la señal a través del circuito. El resultado es un aumento en el tiempo total de retardo que disminuye la frecuencia máxima de oscilación, demostrando cómo incluso modificaciones aparentemente simples pueden afectar significativamente el comportamiento de circuitos digitales de alta velocidad.

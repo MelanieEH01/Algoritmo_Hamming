@@ -623,7 +623,7 @@ Finalmente, un problema que no se pudo resolver fue el hacer que los displays tu
 
 
 #
-# Oscilador en anillo
+# Oscilador de anillo
 Un oscilador de anillo consiste en una cadena de inversores conectados en serie, con la salida del último inversor retroalimentada a la entrada del primero. Esta configuración genera una oscilación autosostenida cuya frecuencia depende del número de inversores y sus características.
 
 Para un oscilador de anillo compuesto por $N$ inversores, donde cada inversor introduce un tiempo de retraso medio $t_p$ (gate delay), el período total de oscilación viene dado por:
@@ -660,6 +660,7 @@ En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retras
 Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
 
 $$\text{Porcentaje Error} = \left|\frac{12,35 \text{ MHz} - 12,5 \text{ MHz}}{12,5 \text{ MHz}}\right| \times 100\% = 1,2\%$$
+$$\text{Porcentaje Error} = 1,124%$$
 
 Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
 

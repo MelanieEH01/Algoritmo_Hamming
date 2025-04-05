@@ -169,16 +169,16 @@ El módulo `module_error_detection` detecta errores comparando los bits recalcul
 #### 3.4.1. module_error_correction
 ```SystemVerilog
 module module_error_correction(
-    input  logic [6:0] word_error,        // Palabra recibida (posiblemente con error)
+    input  logic [6:0] switch_error,        // Palabra recibida (posiblemente con error)
     input  logic [2:0] sindrome,          // Síndrome de error
     output logic [3:0] data_corrected     // Datos de la palabra corregida
 );
     // Extraer los bits de datos sin corregir
     logic i0, i1, i2, i3;
-    assign i0 = word_error[2];  // Bit i0
-    assign i1 = word_error[4];  // Bit i1
-    assign i2 = word_error[5];  // Bit i2
-    assign i3 = word_error[6];  // Bit i3
+    assign i0 = switch_error[2];  // Bit i0
+    assign i1 = switch_error[4];  // Bit i1
+    assign i2 = switch_error[5];  // Bit i2
+    assign i3 = switch_error[6];  // Bit i3
     
     // Generación de señales para detectar cada síndrome específico
     // Usando compuertas AND y NOT para las comparaciones
@@ -229,7 +229,7 @@ No se definen parámetros para este módulo.
 
 #### 3.4.3. Entradas y salidas:
 ###### Entradas:
-- `word_error[6:0]`: Recibe la palabra completa con el posible error.
+- `switch_error[6:0]`: Recibe la palabra completa con el posible error.
 - `sindrome[2:0]`: Recibe el síndrome del error calculado por el detector.
 ###### Salidas:
 - `data_corrected[3:0]`: Proporciona los 4 bits de datos corregidos, donde data_corrected[0] es el LSB y data_corrected[3] el MSB.
@@ -253,7 +253,7 @@ Para demostrar esto vamos a tomar la palabra 1111, se puede comprobar que la cod
 
 - `parity_original` = {0,0,0}
 - `parity_error` = {1,1,1}
-- `sindrome` = parity_original ˆparity_error = {0ˆ1,0ˆ1,0ˆ1} = {1,1,1}
+- `sindrome` = `parity_original` ˆ `parity_error` = {0 ˆ 1, 0 ˆ 1, 0 ˆ 1} = {1,1,1}
 
 Una vez asignado el síndrome, entra en funcionamiento el módulo de corrección del error. 
 

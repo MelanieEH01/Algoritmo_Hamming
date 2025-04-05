@@ -12,6 +12,7 @@
 
 ## 2. Referencias
 [1] David Harris y Sarah Harris. *Digital Design and Computer Architecture. RISC-V Edition.* Morgan Kaufmann, 2022. ISBN: 978-0-12-820064-3
+[2] R. J. Baker, CMOS, 4ta ed. IEEE Press Editorial Board, 2019.
 
 ## 3. Desarrollo
 
@@ -645,16 +646,16 @@ Donde:
 - $N$ es el número de inversores
 - $t_p$ es el tiempo de retraso por inversor
 
-En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns. Utilizando este valor, podemos estimar las frecuencias teóricas esperadas para diferentes configuraciones:
+En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns [2]. Utilizando este valor, podemos estimar las frecuencias teóricas esperadas para diferentes configuraciones:
 
 | Número de Inversores (N) | Frecuencia (f) |
 |:------------------------:|:--------------:|
-| 3 | 41.7 MHz |
+| 3 | 20,83 MHz |
 | 5 | 12,5 MHz |
 
 ### Resultados para un Oscilador de 5 Inversores
 
-![5inv](https://github.com/MelanieEH01/Images_README/blob/20fffd1aa6287bf0022237e3df545af0088fdff9/Proyecto_1/DS0006.PNG)
+![5inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/5inv.jpg)
 
 Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
 
@@ -675,22 +676,40 @@ $$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ 
 
 ### Resultados para un Oscilador de 3 Inversores
 
-![5inv](https://github.com/MelanieEH01/Images_README/blob/20fffd1aa6287bf0022237e3df545af0088fdff9/Proyecto_1/DS0006.PNG)
+![3inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv.PNG)
 
-Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22.46 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
+Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22,47 MHz. Comparando este valor con la frecuencia teórica, podemos determinar el porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{12,35 \text{ MHz} - 12,5 \text{ MHz}}{12,5 \text{ MHz}}\right| \times 100\% = 1,2\%$$
+$$\text{Porcentaje Error} = \left|\frac{22,47\text{ MHz} - 20,83 \text{ MHz}}{20,83 \text{ MHz}}\right| \times 100= 7,87\%$$
 
-Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
+Este porcentaje indica una buena correspondencia entre la predicción teórica y el comportamiento real del circuito, considerando las variaciones típicas en los parámetros de fabricación.
 
 A partir de la frecuencia experimental medida, podemos calcular el tiempo de propagación promedio real por inversor:
 
-$$t_p = \frac{1}{2 \times N \times f}$$ 
-
-$$t_p = \frac{1}{2 \times 5 \times 12,35\text{ MHz}}= 8,09\text{ ns} $$
+$$t_p = \frac{1}{2 \times 3 \times 23,28\text{ MHz}} = 7,16\text{ns} $$
 
 Teniendo como porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1,124%$$
+$$\text{Porcentaje Error} = {\left|\frac{7,16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%} = 1,124%$$
 
 
+#### Cable de 1 Metro
+
+![3inv_cable](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv_cable.PNG)
+
+Al introducir un cable de 1 metro en el oscilador de anillo, se observa un impacto significativo en el comportamiento del circuito. El tiempo de retardo promedio experimenta un cambio:
+
+$$t_p = \frac{1}{2 \times 3 \times 19,79\text{ MHz}} = 8,42\text{ns} $$
+
+La incorporación de un cable de 1 metro al oscilador de anillo produce un incremento en el tiempo de retardo de 7.16 ns a 8.42 ns debido a la introducción de elementos parásitos distribuidos. Este fenómeno se explica mediante el modelo de línea de transmisión RC, donde la capacitancia distribuida requiere tiempo adicional para cargarse y descargarse, mientras que la inductancia del cable genera efectos de rebote en las transiciones.
+Esta carga capacitiva e inductiva, combinada con la resistencia óhmica del conductor, limita la corriente disponible para las transiciones de estado, ralentizando efectivamente la propagación de la señal a través del circuito. El resultado es un aumento en el tiempo total de retardo que disminuye la frecuencia máxima de oscilación, demostrando cómo incluso modificaciones aparentemente simples pueden afectar significativamente el comportamiento de circuitos digitales de alta velocidad.
+
+
+### Resultados para un Oscilador de 1 Inversor
+
+![1inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/1inv.PNG)
+
+En la configuración con un único inversor, se presenta un fenómeno particular donde la entrada y salida comparten el mismo nodo, impidiendo la oscilación correcta del circuito. Esta disposición imposibilita que la señal complete un ciclo de oscilación adecuado, ya que el inversor no recibe cambios suficientemente rápidos en su entrada.
+Como resultado, el dispositivo queda atrapado en una zona intermedia (aproximadamente 1V) conocida como estado metaestable, en la cual el circuito no puede definirse claramente entre los estados lógicos alto y bajo. Este comportamiento demuestra la necesidad fundamental de incorporar un número impar de inversores mayor a uno para conseguir un oscilador de anillo funcional que pueda mantener oscilaciones sostenidas.
+
+#

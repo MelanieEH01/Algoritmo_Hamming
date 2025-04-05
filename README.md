@@ -69,7 +69,7 @@ No se definen parámetros para este módulo.
  El módulo `module_encoder` implementa un codificador que genera bits de paridad para detección de errores. Extrae los 4 bits de datos de entrada, calcula tres bits de paridad mediante XOR entre bits específicos, construye la palabra codificada de 7 bits y verifica la paridad mediante XOR entre datos y bits de paridad, produciendo como salida los bits de paridad original.
 
 #### 3.1.5. Criterios de diseño
-![module_encoder](https://github.com/MelanieEH01/Images_README/blob/db9f83d1e0962d2d328390ba1755ff41acee7fe2/Proyecto_1/module_encoder.png)
+![module_encoder](https://github.com/MelanieEH01/Images_README/blob/8b9b8ad17e5045fb8d3993f3d5fcc7a86c7c3dcd/Proyecto_1/module_encoder.png)
 
 
 ### 3.2 Módulo 2
@@ -623,6 +623,7 @@ La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más
 Un oscilador de anillo consiste en una cadena de inversores conectados en serie, con la salida del último inversor retroalimentada a la entrada del primero. Esta configuración genera una oscilación autosostenida cuya frecuencia depende del número de inversores y sus características.
 
 Para un oscilador de anillo compuesto por $N$ inversores, donde cada inversor introduce un tiempo de retraso medio $t_p$ (gate delay), el período total de oscilación viene dado por:
+
 $$T = 2 \times N \times t_p$$
 
 Donde:

@@ -616,6 +616,9 @@ Un aspecto destacable del diseño es la ausencia total de elementos de memoria, 
 La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más complejas del diseño están relacionadas con la decodificación para los displays de 7 segmentos y los circuitos de corrección de errores.
 
 ## 5. Problemas encontrados durante el proyecto
+Durante la realización del proyecto hubo múltiples dificultades que condicionaron el desarrollo de cada una de las fases de este. Lo principal fue la curva de aprendizaje que conlleva aprender a programar en un nuevo lenguaje y que, además, es HDL, cuando únicamente se había trabajado con lenguajes de software. La solución para esto fue buscar recursos en internet, vídeos y el uso del libro de texto, así como la ayuda del asistente del curso. Algo nuevo del proyecto fue el uso de una FPGA, esto presentó un reto ya que en cursos anteriores no se había utilizado nada similar, así que de igual manera se tuvo que buscar cómo asignar las salidas a los pines y cómo poder manejar cada entrada del dispositivo.
+Hablando más sobre la parte del código, los módulos más complicados fueron el corrector del error y el display hacia los siete segmentos. El corrector presentaba muchas fallas durante la fase de prueba ya que el análisis no se estaba haciendo de manera correcta entonces cuando se inducía un error no siempre se corregía y empezaba a dar errores en la salida de los leds. Se probaron múltiples métodos de comparación de palabras hasta que se llegó al código definitivo que permitió corregir el error. Con respecto a los displays de siete segmentos, el hecho de entender de qué manera enviar la señal para hacerle entender a cada display cuáles leds debía de encender presentó una alta dificultad. Esto se pudo solucionar creando un decodificador por medio de muxes 2:1 que asigna una salida específica a cada led de acuerdo con el número binario recibido. De igual manera se realizó el módulo decodificador para el síndrome. 
+Finalmente, un problema que no se pudo resolver fue el hacer que los displays tuvieran un refresco de tal manera que se diera la ilusión de que cada uno mostraba una señal distinta. Se terminó utilizando un botón que alternaba el encendido de cada display, donde uno muestra el valor del síndrome y el otro el valor de la palabra transmitida en notación hexadecimal. 
 
 
 #
@@ -647,16 +650,47 @@ En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retras
 | Número de Inversores (N) | Frecuencia (f) |
 |:------------------------:|:--------------:|
 | 3 | 41.7 MHz |
-| 5 | 25 MHz |
+| 5 | 12,5 MHz |
 
 ### Resultados para un Oscilador de 5 Inversores
 
 ![5inv](https://github.com/MelanieEH01/Images_README/blob/20fffd1aa6287bf0022237e3df545af0088fdff9/Proyecto_1/DS0006.PNG)
 
-Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22.46 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
+Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
+
+$$\text{Porcentaje Error} = \left|\frac{12,35 \text{ MHz} - 12,5 \text{ MHz}}{12,5 \text{ MHz}}\right| \times 100\% = 1,2\%$$
+
+Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
+
+A partir de la frecuencia experimental medida, podemos calcular el tiempo de propagación promedio real por inversor:
+
+$$t_p = \frac{1}{2 \times N \times f}$$ 
+
+$$t_p = \frac{1}{2 \times 5 \times 12,35\text{ MHz}}= 8,09\text{ ns} $$
+
+Teniendo como porcentaje de error:
+
+$$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1,124%$$
 
 
+### Resultados para un Oscilador de 3 Inversores
 
+![5inv](https://github.com/MelanieEH01/Images_README/blob/20fffd1aa6287bf0022237e3df545af0088fdff9/Proyecto_1/DS0006.PNG)
 
+Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22.46 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
+
+$$\text{Porcentaje Error} = \left|\frac{12,35 \text{ MHz} - 12,5 \text{ MHz}}{12,5 \text{ MHz}}\right| \times 100\% = 1,2\%$$
+
+Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
+
+A partir de la frecuencia experimental medida, podemos calcular el tiempo de propagación promedio real por inversor:
+
+$$t_p = \frac{1}{2 \times N \times f}$$ 
+
+$$t_p = \frac{1}{2 \times 5 \times 12,35\text{ MHz}}= 8,09\text{ ns} $$
+
+Teniendo como porcentaje de error:
+
+$$\text{Porcentaje Error} = \left|\frac{8,09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1,124%$$
 
 

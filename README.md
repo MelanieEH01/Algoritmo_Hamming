@@ -478,14 +478,141 @@ Integra todos los módulos anteriores para formar el sistema completo de detecci
 ![top](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/top_module.png)
 
 #### 3.9.6. Testbench
-Descripción y resultados de las pruebas hechas
+```SystemVerilog
+`timescale 1ns/1ps
 
+module tb_top_module;
+    // Definición de señales de prueba
+    logic [3:0] swi_word_tx = 4'b0000;
+    logic [6:0] swi_word_rx = 7'b0000000;
+    logic       btn = 0;           // Botón para cambiar el display
+    logic       clk = 0;           // Reloj del sistema
+    logic [3:0] led;               // LEDs para mostrar palabra corregida
+    logic [6:0] seg;               // Segmentos del display
+    logic [1:0] anodo;             // Ánodos para seleccionar display
+
+    // Instancia del módulo bajo prueba (UUT: Unit Under Test)
+    top_module uut (
+        .swi_word_tx(swi_word_tx),
+        .swi_word_rx(swi_word_rx),
+        .btn(btn),
+        .led(led),
+        .seg(seg),
+        .anodo(anodo)
+    );
+
+    // Generación de reloj (periodo de 10ns = 100MHz)
+    always #5 clk = ~clk;
+
+    initial begin
+        // Display para resultados
+        
+        // Probar valores (error en posicion 5 - i2)
+        swi_word_tx = 4'b1101;
+        swi_word_rx = 7'b1110110;
+        #20
+        
+        // Simular pulsación de botón
+        btn = 1;
+        #10
+        btn = 0;
+        #10
+
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display(" Palabra Transmitida |    Palabra con Error   |     Sindrome     | Palabra Corregida (Negada para los LEDS) ");
+        $display("     i3,i2,i1,i0     |  i3,i2,i1,c2,i0,c1,c0  |    c2,c1,c0      |                i3,i2,i1,i0               ");
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display("         %b                  %b                %b                        %b", swi_word_tx, swi_word_rx, uut.sindrome, led);
+
+        // Probar valores (error en posicion 6 - i1)
+        swi_word_tx = 4'b0110;
+        swi_word_rx = 7'b0010011;
+        #20
+        
+        // Simular pulsación de botón
+        btn = 1;
+        #10
+        btn = 0;
+        #10
+        
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display(" Palabra Transmitida |    Palabra con Error   |     Sindrome     | Palabra Corregida (Negada para los LEDS) ");
+        $display("     i3,i2,i1,i0     |  i3,i2,i1,c2,i0,c1,c0  |    c2,c1,c0      |                i3,i2,i1,i0               ");
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display("         %b                  %b                %b                        %b\n", swi_word_tx, swi_word_rx, uut.sindrome, led);
+        
+        // Probar valores (error en posicion 7 - i3)
+        swi_word_tx = 4'b1010;
+        swi_word_rx = 7'b0010010;
+        #20
+        
+        // Simular pulsación de botón
+        btn = 1;
+        #10
+        btn = 0;
+        #10
+        
+         $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display(" Palabra Transmitida |    Palabra con Error   |     Sindrome     | Palabra Corregida (Negada para los LEDS) ");
+        $display("     i3,i2,i1,i0     |  i3,i2,i1,c2,i0,c1,c0  |    c2,c1,c0      |                i3,i2,i1,i0               ");
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display("         %b                  %b                %b                        %b", swi_word_tx, swi_word_rx, uut.sindrome, led);
+
+        // Probar valores (error en posicion 2 - i0)
+        swi_word_tx = 4'b1010;
+        swi_word_rx = 7'b1010000;
+        #20
+        
+        // Simular pulsación de botón
+        btn = 1;
+        #10
+        btn = 0;
+        #10
+        
+         $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display(" Palabra Transmitida |    Palabra con Error   |     Sindrome     | Palabra Corregida (Negada para los LEDS) ");
+        $display("     i3,i2,i1,i0     |  i3,i2,i1,c2,i0,c1,c0  |    c2,c1,c0      |                i3,i2,i1,i0               ");
+        $display("---------------------|------------------------|------------------|------------------------------------------");
+        $display("         %b                  %b                %b                        %b", swi_word_tx, swi_word_rx, uut.sindrome, led);
+
+        // Agregar información sobre display de 7 segmentos y síndrome
+        $display("\nEstado de los displays de 7 segmentos:");
+        $display("Segmentos: %b, Anodos activos: %b", seg, anodo);
+
+        $finish;
+    end
+
+    // Proceso de simulación
+    initial begin
+        $dumpfile("hamming_test.vcd");
+        $dumpvars(0, tb_top_module);
+    end
+
+endmodule
+```
+##### 3.9.6.1 Descripción
+Este testbench es utilizado para validar el funcionamiento del sistema completo de código Hamming. Comienza inicializando las señales de entrada con valores por defecto y declarando las señales de salida que serán monitoreadas. Instancia el módulo top_module bajo prueba, conectando todas las señales necesarias. El testbench ejecuta cuatro casos de prueba específicos que simulan diferentes escenarios de error: un error en la posición 5, un error en la posición 6, un error en la posición 7 y un error en la posición 2. Para cada caso, establece los valores de palabra de entrada y palabra con error, simula la pulsación del botón para cambiar entre displays, y muestra los resultados formateados en tablas que incluyen la palabra transmitida, la palabra con error, el síndrome calculado y la palabra corregida. El testbench también genera un archivo VCD para visualización de formas de onda y finaliza la simulación después de completar todas las pruebas. Esta estructura permite verificar sistemáticamente la capacidad del sistema para detectar y corregir errores en diferentes posiciones de bit, validando que los síndromes generados y las correcciones aplicadas sean correctos en cada caso.
+
+##### 3.9.6.2 Resultados
+###### Consola
+![consola](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/Consola.png)
+
+###### GTKWave (Simulación)
+![gtkwave](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/gtkwave.png)
 
 
 ## 4. Consumo de recursos
+Sobre el archivo synthesis_tangnano9k.log se obtuvieron las siguientes características:
+![recursos](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/gtkwave.png)
+
+El informe de síntesis para el top_module revela un consumo de 303 células lógicas distribuidas entre diferentes tipos de look-up tables (LUTs). La mayor parte del consumo corresponde a LUT4 con 137 unidades, seguido por MUX2_LUT5 con 72 unidades. El resto de recursos se distribuye entre otros tipos de LUTs, incluidos MUX2_LUT6 (36 unidades), MUX2_LUT7 (18 unidades) y MUX2_LUT8 (7 unidades). Adicionalmente, el diseño utiliza elementos de interfaz: 12 buffers de entrada (IBUF) para manejar las señales provenientes de los interruptores y botones, y 13 buffers de salida (OBUF) para controlar los LEDs y displays de 7 segmentos.
+La conectividad del diseño muestra un total de 288 cables con 338 bits de cables, todos ellos clasificados como públicos. Estos recursos representan las interconexiones necesarias para comunicar los diferentes módulos del sistema, como el codificador, decodificador, detector de errores y corrector de errores. El número relativamente alto de conexiones refleja la naturaleza modular del diseño, donde cada componente realiza una función específica en el proceso de detección y corrección.
+Un aspecto destacable del diseño es la ausencia total de elementos de memoria, con cero memorias y cero bits de memoria utilizados. Esto confirma que la implementación es completamente combinacional, procesando las entradas y generando las salidas sin necesidad de almacenar estados intermedios. Esta característica es coherente con la naturaleza del código Hamming implementado, que permite la detección y corrección de errores mediante operaciones lógicas directas sin requerir elementos secuenciales.
+La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más complejas del diseño están relacionadas con la decodificación para los displays de 7 segmentos y los circuitos de corrección de errores.
 
 ## 5. Problemas encontrados durante el proyecto
 
 
 
-# Ejercicio 2: Oscilador en anillo
+# Oscilador en anillo
+

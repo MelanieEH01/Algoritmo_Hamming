@@ -607,6 +607,7 @@ La simulación confirma que el codificador genera correctamente los bits de pari
 
 ## 4. Consumo de recursos
 Sobre el archivo synthesis_tangnano9k.log se obtuvieron las siguientes características:
+
 ![recursos](https://github.com/MelanieEH01/Images_README/blob/8b9b8ad17e5045fb8d3993f3d5fcc7a86c7c3dcd/Proyecto_1/recursos.png)
 
 El informe de síntesis para el top_module revela un consumo de 303 células lógicas distribuidas entre diferentes tipos de look-up tables (LUTs). La mayor parte del consumo corresponde a LUT4 con 137 unidades, seguido por MUX2_LUT5 con 72 unidades. El resto de recursos se distribuye entre otros tipos de LUTs, incluidos MUX2_LUT6 (36 unidades), MUX2_LUT7 (18 unidades) y MUX2_LUT8 (7 unidades). Adicionalmente, el diseño utiliza elementos de interfaz: 12 buffers de entrada (IBUF) para manejar las señales provenientes de los interruptores y botones, y 13 buffers de salida (OBUF) para controlar los LEDs y displays de 7 segmentos.
@@ -617,5 +618,6 @@ La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más
 ## 5. Problemas encontrados durante el proyecto
 
 
+#
 # Oscilador en anillo
 

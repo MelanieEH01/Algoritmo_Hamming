@@ -8,10 +8,11 @@
 - **FPGA**: Field Programmable Gate Arrays
 - **MSB**: Most Significant Bit
 - **LSB**: Least Significant Bit
-- **btn**: Botón
+- **BTN**: Botón
 
 ## 2. Referencias
-[1] David Harris y Sarah Harris. *Digital Design and Computer Architecture. RISC-V Edition.* Morgan Kaufmann, 2022. ISBN: 978-0-12-820064-3
+[1] David Harris y Sarah Harris. *Digital Design and Computer Architecture. RISC-V Edition.* Morgan Kaufmann, 2022. ISBN: 978-0-12-820064-3.
+
 [2] R. J. Baker, CMOS, 4ta ed. IEEE Press Editorial Board, 2019.
 
 ## 3. Desarrollo
@@ -250,22 +251,23 @@ El código implementa un mecanismo de reconocimiento para identificar cuando el 
 
 Para demostrar esto vamos a tomar la palabra 1111, se puede comprobar que la codificación en Hamming para ese caso sería 1111111. Supongamos que se introduce un error en el bit 7 de la palabra, es decir, se transmite 0111111. El módulo de decoder va a calcular c0, c1 y c2 y lanzará el parity_error. El módulo de detección hará un XOR entre parity_original y parity_error de la siguiente manera:
 
-`parity_original` = {0,0,0}
-`parity_error` = {1,1,1}
-`sindrome` = parity_original ˆparity_error = {0ˆ1,0ˆ1,0ˆ1} = {1,1,1}
+- `parity_original` = {0,0,0}
+- `parity_error` = {1,1,1}
+- `sindrome` = parity_original ˆparity_error = {0ˆ1,0ˆ1,0ˆ1} = {1,1,1}
 
 Una vez asignado el síndrome, entra en funcionamiento el módulo de corrección del error. 
 
-$$sindrome\_i0 = \sim síndrome[2] \land síndrome[1] \land síndrome[0] = 0 \land 1 \land 1 = 0$$
-$$síndrome\_i1 = síndrome[2] \land \sim síndrome[1] \land síndrome[0] = 1 \land 0 \land 1 = 0$$
-$$síndrome\_i2 = síndrome[2] \land síndrome[1] \land \sim síndrome[0] = 1 \land 1 \land 0 = 0$$
-$$síndrome\_i3 = síndrome[2] \land síndrome[1] \land síndrome[0] = 1 \land 1 \land 1 = 1$$
+$$sindrome\_i0 = \sim sindrome[2] \land sindrome[1] \land sindrome[0] = 0 \land 1 \land 1 = 0$$
+$$sindrome\_i1 = sindrome[2] \land \sim sindrome[1] \land sindrome[0] = 1 \land 0 \land 1 = 0$$
+$$sindrome\_i2 = sindrome[2] \land sindrome[1] \land \sim sindrome[0] = 1 \land 1 \land 0 = 0$$
+$$sindrome\_i3 = sindrome[2] \land sindrome[1] \land sindrome[0] = 1 \land 1 \land 1 = 1$$
 
 Ahora se procede a corregir de acuerdo a cada caso:
-$$i0\_corrected = i0 \oplus síndrome\_i0 = 1 \oplus 0 = 1$$
-$$i1\_corrected = i1 \oplus síndrome\_i1 = 1 \oplus 0 = 1$$
-$$i2\_corrected = i2 \oplus síndrome\_i2 = 1 \oplus 0 = 1$$
-$$i3\_corrected = i3 \oplus síndrome\_i3 = 0 \oplus 1 = 1$$
+
+$$i0_corrected = i0 \oplus síndrome_i0 = 1 \oplus 0 = 1$$
+$$i1_corrected = i1 \oplus síndrome_i1 = 1 \oplus 0 = 1$$
+$$i2_corrected = i2 \oplus síndrome_i2 = 1 \oplus 0 = 1$$
+$$i3_corrected = i3 \oplus síndrome_i3 = 0 \oplus 1 = 1$$
 
 Cabe resaltar que en el módulo de corrección de error i0, i1, i2 e i3 son los bits de información de la palabra con error. Por tanto, queda demostrado como por medio del cálculo del síndrome, síndrome_ix y el XOR entre los bits de información y síndrome_ix se da el cambio para el bit con error y por ende la corrección de la palabra.
 
@@ -475,6 +477,8 @@ Para las entradas de la tabla:
 
 La columna "Hex" muestra el valor en hexadecimal que se desea representar en el display de siete segmentos.
 
+<div align="center">
+
 | A | B | C | D | Hex | a | b | c | d | e | f | g |
 |---|---|---|---|-----|---|---|---|---|---|---|---|
 | 0 | 0 | 0 | 0 | 0   | 1 | 1 | 1 | 1 | 1 | 1 | 0 |
@@ -494,6 +498,7 @@ La columna "Hex" muestra el valor en hexadecimal que se desea representar en el 
 | 1 | 1 | 1 | 0 | E   | 1 | 0 | 0 | 1 | 1 | 1 | 1 |
 | 1 | 1 | 1 | 1 | F   | 1 | 0 | 0 | 0 | 1 | 1 | 1 |
 
+</div>
 
 Para ilustrar el proceso de simplificación de ecuaciones booleanas en el diseño del decodificador de siete segmentos, analizaremos el segmento b. Este segmento debe activarse para representar los dígitos hexadecimales 0, 1, 2, 3, 4, 7, 8, 9, A y d.
 

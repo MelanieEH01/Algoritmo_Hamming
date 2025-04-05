@@ -642,7 +642,30 @@ Donde:
 - $N$ es el número de inversores
 - $t_p$ es el tiempo de retraso por inversor
 
-En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns.
+En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns. Utilizando este valor, podemos estimar las frecuencias teóricas esperadas para diferentes configuraciones:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Estimación de Frecuencias Teóricas}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Número de inversores (N) & Frecuencia (f) \\
+        \hline
+        5 & 3\\
+        25MHz & 41,7MHz\\
+        \hline
+    \end{tabular}
+    \label{tab:teorico}
+\end{table}
 
 ### Resultados para un Oscilador de 5 Inversores
+
+![5inv](https://github.com/MelanieEH01/Images_README/blob/20fffd1aa6287bf0022237e3df545af0088fdff9/Proyecto_1/DS0006.PNG)
+
+Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22.46 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
+
+
+
+
+
 

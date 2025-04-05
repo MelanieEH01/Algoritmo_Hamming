@@ -888,7 +888,7 @@ Este porcentaje indica una buena correspondencia entre la predicción teórica y
 
 A partir de la frecuencia experimental medida, podemos calcular el tiempo de propagación promedio real por inversor:
 
-$$t_p = \frac{1}{2 \times 3 \times 23.28\text{ MHz}} = 7.16\text{ns} $$
+$$t_p = \frac{1}{2 \times 3 \times 22.48\text{ MHz}} = 7.16\text{ns} $$
 
 Teniendo como porcentaje de error:
 

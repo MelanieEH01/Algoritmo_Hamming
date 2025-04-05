@@ -70,7 +70,13 @@ No se definen parámetros para este módulo.
  El módulo `module_encoder` implementa un codificador que genera bits de paridad para detección de errores. Extrae los 4 bits de datos de entrada, calcula tres bits de paridad mediante XOR entre bits específicos, construye la palabra codificada de 7 bits y verifica la paridad mediante XOR entre datos y bits de paridad, produciendo como salida los bits de paridad original.
 
 #### 3.1.5. Criterios de diseño
+
+<div align="center">
+
 ![module_encoder](https://github.com/MelanieEH01/Images_README/blob/8b9b8ad17e5045fb8d3993f3d5fcc7a86c7c3dcd/Proyecto_1/module_encoder.png)
+
+</div>
+
 
 
 ### 3.2 Módulo 2
@@ -110,7 +116,13 @@ No se definen parámetros para este módulo.
 El módulo `module_decoder` recalcula los bits de paridad a partir de una palabra de 7 bits ingresada potencialmente con error. Calcula tres bits de paridad mediante operaciones XOR de ciertos bits de la palabra recibida, siguiendo el patrón de código Hamming para verificación de paridad.
 
 #### 3.2.5. Criterios de diseño
+
+<div align="center">
+
 ![module_decoder](https://github.com/MelanieEH01/Images_README/blob/69ec1be5492ee66390c3db05843f07aff60c5606/Proyecto_1/module_decoder.png)
+
+</div>
+
 
 
 ### 3.3 Módulo 3
@@ -143,7 +155,13 @@ No se definen parámetros para este módulo.
 El módulo `module_error_detection` detecta errores comparando los bits recalculados de paridad original codificada con los bits recalculados de la palabra recibida mediante XOR, generando un síndrome que indica la presencia y posición del bit erróneo.
 
 #### 3.3.5. Criterios de diseño
+
+<div align="center">
+
 ![module_error_detection](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_error_detection.png)
+
+</div>
+
 
 
 ### 3.4 Módulo 4
@@ -219,7 +237,38 @@ No se definen parámetros para este módulo.
 El módulo `module_error_correction` primero extrae los cuatro bits de datos (i3, i2, i1, i0) de la palabra recibida con posible error, ubicados en posiciones específicas de la palabra de 7 bits. Luego realiza un análisis del síndrome de 3 bits para identificar con precisión qué bit contiene el error. Para esto, utiliza operaciones lógicas AND y NOT que decodifican el síndrome en cuatro señales binarias (sindrome_i0 a sindrome_i3), donde cada una se activa únicamente cuando el síndrome indica error en su bit correspondiente. Una vez identificado el bit erróneo, el módulo aplica operaciones XOR entre cada bit de datos y su señal de síndrome correspondiente: si la señal del síndrome está activa (1), el bit se invierte para corregirlo; si está inactiva (0), el bit permanece sin cambios. Finalmente, combina los cuatro bits ya corregidos en una salida de 4 bits.
 
 #### 3.4.5. Criterios de diseño
+
+<div align="center">
+
 ![module_error_correction](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_error_correction.png)
+
+</div>
+
+#### 3.4.6. Explicación de las ecuaciones booleanas utilizadas
+El código corrector entra en funcionamiento si hay alguno de los bits de información de la palabra transmitida con error, de otra manera, no hace ninguna corrección. Si el síndrome es 011 hay error en i0, si es 101 hay un error en i1, si es 110 hay error en i2 y si es 111 hay error en i3. 
+El código implementa un mecanismo de reconocimiento para identificar cuando el síndrome corresponde a cualquiera de los casos mencionados. Una vez identificado el síndrome específico, el sistema procede a realizar la operación XOR entre el indicador de síndrome correspondiente y cada bit de información. Este proceso permite que, si el bit contiene un error, sea invertido, logrando así la corrección del error en la palabra. La palabra con el error ya corregido se almacena en la señal `data_corrected`.
+
+Para demostrar esto vamos a tomar la palabra 1111, se puede comprobar que la codificación en Hamming para ese caso sería 1111111. Supongamos que se introduce un error en el bit 7 de la palabra, es decir, se transmite 0111111. El módulo de decoder va a calcular c0, c1 y c2 y lanzará el parity_error. El módulo de detección hará un XOR entre parity_original y parity_error de la siguiente manera:
+
+`parity_original` = {0,0,0}
+`parity_error` = {1,1,1}
+`sindrome` = parity_original ˆparity_error = {0ˆ1,0ˆ1,0ˆ1} = {1,1,1}
+
+Una vez asignado el síndrome, entra en funcionamiento el módulo de corrección del error. 
+
+$$sindrome\_i0 = \sim síndrome[2] \land síndrome[1] \land síndrome[0] = 0 \land 1 \land 1 = 0$$
+$$síndrome\_i1 = síndrome[2] \land \sim síndrome[1] \land síndrome[0] = 1 \land 0 \land 1 = 0$$
+$$síndrome\_i2 = síndrome[2] \land síndrome[1] \land \sim síndrome[0] = 1 \land 1 \land 0 = 0$$
+$$síndrome\_i3 = síndrome[2] \land síndrome[1] \land síndrome[0] = 1 \land 1 \land 1 = 1$$
+
+Ahora se procede a corregir de acuerdo a cada caso:
+$$i0\_corrected = i0 \oplus síndrome\_i0 = 1 \oplus 0 = 1$$
+$$i1\_corrected = i1 \oplus síndrome\_i1 = 1 \oplus 0 = 1$$
+$$i2\_corrected = i2 \oplus síndrome\_i2 = 1 \oplus 0 = 1$$
+$$i3\_corrected = i3 \oplus síndrome\_i3 = 0 \oplus 1 = 1$$
+
+Cabe resaltar que en el módulo de corrección de error i0, i1, i2 e i3 son los bits de información de la palabra con error. Por tanto, queda demostrado como por medio del cálculo del síndrome, síndrome_ix y el XOR entre los bits de información y síndrome_ix se da el cambio para el bit con error y por ende la corrección de la palabra.
+
 
 
 ### 3.5 Módulo 5
@@ -250,7 +299,13 @@ No se definen parámetros para este módulo.
 El módulo `module_led_display` muestra la palabra corregida en los LEDs de la FPGA, invirtiendo los bits de datos corregidos ya que los LEDs típicamente se encienden con nivel bajo.
 
 #### 3.5.5. Criterios de diseño
+
+<div align="center">
+
 ![leds](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/module_led_display.png)
+
+</div>
+
 
 
 ### 3.6 Módulo 6
@@ -296,7 +351,13 @@ No se definen parámetros para este módulo.
 El módulo `bin4_to_7seg_sec` implementa un decodificador de 4 bits a 7 segmentos, donde un 0 en la salida activa el segmento correspondiente. Utiliza una serie de operadores condicionales ternarios anidados para mapear cada valor binario de 4 bits a su representación específica en un display de 7 segmentos. El módulo soporta la representación de todos los dígitos hexadecimales (0-9 y A-F). Cada bit de salida controla un segmento específico del display, y la combinación de estos bits encendidos o apagados forma el patrón visual del número o letra. Si se recibe un valor no definido, todos los segmentos se apagan por defecto.
 
 #### 3.6.5. Criterios de diseño
+
+<div align="center">
+
 ![bin_7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/bin4_to_7seg_sec.png)
+
+</div>
+
 
 
 ### 3.7 Módulo 7
@@ -334,7 +395,13 @@ No se definen parámetros para este módulo.
 El módulo `sindrome_to_7seg` funciona como un decodificador específico para convertir un valor de síndrome de 3 bits en una representación de 7 segmentos para displays de cátodo común. Utiliza una estructura de operadores condicionales ternarios anidados para mapear cada uno de los ocho posibles valores del síndrome (000 a 111) a su correspondiente configuración de segmentos. Al igual que en el módulo `bin4_to_7seg_sec`, un 0 en cada bit de la salida activa el segmento respectivo del display.
 
 #### 3.7.5. Criterios de diseño
+
+<div align="center">
+
 ![sin_7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/sindrome_to_7seg.png)
+
+</div>
+
 
 
 ### 3.8 Módulo 8
@@ -390,7 +457,94 @@ No se definen parámetros para este módulo.
 El módulo `display_mux` implementa un sistema de multiplexado para controlar dos displays de 7 segmentos usando una sola salida física. Primero instancia dos convertidores: sindrome_to_7seg para generar los patrones de segmentos del síndrome de 3 bits, y bin4_to_7seg_sec para convertir la palabra binaria corregida de 4 bits a su representación en 7 segmentos. Luego, utiliza multiplexores 2:1 controlados por la entrada de botón (btn) para seleccionar qué señales enviar a las salidas. Para los segmentos (seg), selecciona seg_sin cuando el botón está presionado (btn=1) o seg_bin cuando no lo está (btn=0). Simultáneamente, para los ánodos (an), selecciona activar el segundo display (an=10) cuando el botón está presionado o el primer display (an=01) cuando no lo está. Esta implementación permite al usuario alternar la visualización entre el valor del síndrome y la palabra corregida con solo presionar un botón.
 
 #### 3.8.5. Criterios de diseño
+
+<div align="center">
+
 ![7seg](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/display_mux.png)
+
+</div>
+
+#### 3.8.6. Explicación de las ecuaciones booleanas utilizadas
+En esta sección se presenta la tabla de verdad para los display de siete segmentos. Es importante destacar que los displays utilizados son de tipo ánodo común, lo que significa que cada segmento se activará cuando se le aplique un nivel lógico bajo (0). Este comportamiento se implementa negando la salida de las ecuaciones booleanas correspondientes a cada segmento.
+
+Para las entradas de la tabla:
+- A representa el bit más significativo (MSB) del número binario recibido
+- B representa el tercer bit
+- C representa el segundo bit
+- D representa el bit menos significativo (LSB)
+
+La columna "Hex" muestra el valor en hexadecimal que se desea representar en el display de siete segmentos.
+
+| A | B | C | D | Hex | a | b | c | d | e | f | g |
+|---|---|---|---|-----|---|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0   | 1 | 1 | 1 | 1 | 1 | 1 | 0 |
+| 0 | 0 | 0 | 1 | 1   | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 0 | 2   | 1 | 1 | 0 | 1 | 1 | 0 | 1 |
+| 0 | 0 | 1 | 1 | 3   | 1 | 1 | 1 | 1 | 0 | 0 | 1 |
+| 0 | 1 | 0 | 0 | 4   | 0 | 1 | 1 | 0 | 0 | 1 | 1 |
+| 0 | 1 | 0 | 1 | 5   | 1 | 0 | 1 | 1 | 0 | 1 | 1 |
+| 0 | 1 | 1 | 0 | 6   | 1 | 0 | 1 | 1 | 1 | 1 | 1 |
+| 0 | 1 | 1 | 1 | 7   | 1 | 1 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 0 | 0 | 8   | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| 1 | 0 | 0 | 1 | 9   | 1 | 1 | 1 | 1 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 0 | A   | 1 | 1 | 1 | 0 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 1 | b   | 0 | 0 | 1 | 1 | 1 | 1 | 1 |
+| 1 | 1 | 0 | 0 | C   | 1 | 0 | 0 | 1 | 1 | 1 | 0 |
+| 1 | 1 | 0 | 1 | d   | 0 | 1 | 1 | 1 | 1 | 0 | 1 |
+| 1 | 1 | 1 | 0 | E   | 1 | 0 | 0 | 1 | 1 | 1 | 1 |
+| 1 | 1 | 1 | 1 | F   | 1 | 0 | 0 | 0 | 1 | 1 | 1 |
+
+
+Para ilustrar el proceso de simplificación de ecuaciones booleanas en el diseño del decodificador de siete segmentos, analizaremos el segmento b. Este segmento debe activarse para representar los dígitos hexadecimales 0, 1, 2, 3, 4, 7, 8, 9, A y d.
+
+Partiendo de la tabla de verdad, podemos obtener la función booleana del segmento b mediante la suma de productos (SOP):
+
+$$b = A'B'C'D' + A'B'C'D + A'B'CD' + A'B'CD + A'BC'D' + A'BCD + AB'C'D' + AB'C'D + AB'CD' + ABC'D$$
+
+Aplicando factorización:
+
+$$b = A'B'(C'D'+C'D+CD'+CD) + A'B(C'D'+CD) + AB'(C'D'+C'D+CD') + ABC'D$$
+
+Agrupando términos:
+
+$$b = A'B'[C'(D+D') +C(D'+D)] + A'B(C'D'+CD) + AB'[C'(D'+D) +CD'] + ABC'D$$
+
+Aplicando propiedad del complemento $(D+D' = 1)$:
+
+$$b = A'B'[C'+C] + A'B(C'D'+CD) + AB'[C'+CD'] + ABC'D$$
+
+Simplificando $(C'+C = 1)$:
+
+$$b = A'B' + A'BC'D' + A'BCD + AB'[C'+D] + ABC'D$$
+
+Continuando con la simplificación:
+
+$$b = A'B' + A'BC'D'+ A'BCD + AC'[B'+D+BD]$$
+
+Aplicando cobertura y duplicación:
+
+$$b = A'B' + A'BC'D +A'BC'D + A'BCD + AC'B' + AC'D$$
+
+Simplificando términos duplicados:
+
+$$b = A'B' + A'BC'D + A'BD(C'+C) + AC'B' + AC'D$$
+
+Aplicando propiedad del complemento:
+
+$$b = A'B' + A'BC'D + A'BD + AC'B' + AC'D$$
+
+Factorizando:
+
+$$b = A'B' + A'D(BC'+B) + AC'B' + AC'D$$
+
+Aplicando propiedad de cobertura $(BC'+B = B)$:
+
+$$b = A'B' + A'DB + AC'B' + AC'D$$
+
+Esta es la simplificación máxima para la función del segmento b. Finalmente, dado que el display es de ánodo común (activo en bajo), debemos negar la salida:
+
+$$b = (A'B' + A'DB + AC'B' + AC'D)'$$
+
 
 
 ### 3.9 Módulo 9
@@ -476,7 +630,12 @@ No se definen parámetros para este módulo.
 Integra todos los módulos anteriores para formar el sistema completo de detección y corrección de errores, conectando el codificador, decodificador, detector de errores, corrector de errores, controlador de LEDs y multiplexor de displays para implementar un código Hamming (7,4) que puede detectar y corregir un solo error de bit en una palabra de 7 bits.
 
 #### 3.9.5. Criterios de diseño
+
+<div align="center">
+
 ![top](https://github.com/MelanieEH01/Images_README/blob/bbd6eae6a9600ed92a021bd227f549a55c4cf417/Proyecto_1/top_module.png)
+
+</div>
 
 #### 3.9.6. Testbench
 ```SystemVerilog
@@ -596,30 +755,49 @@ Este testbench es utilizado para validar el funcionamiento del sistema completo 
 
 ##### 3.9.6.2 Resultados
 ###### Consola
+
+<div align="center">
+
 ![consola](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/Consola.png)
 
+</div>
+
 ###### GTKWave (Simulación)
+
+<div align="center">
+
 ![gtkwave](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/gtkwave.png)
+
+</div>
 
 A partir de la imagen de GTKWave, se puede rastrear el flujo de señales a través del sistema. 
 Se explicará el primer ejemplo, la entrada original es `switch_input[3:0]` = 1101 (13 en decimal), que se codifica como `encoded_word[6:0]` = 1100110 con bits de paridad originales `parity_original[2:0]` = 000. En la simulación, se introduce un error, resultando en `switch_error[6:0] = 1110110`, con una diferencia en el bit 5. Los bits de paridad recalculados `parity_error[2:0]` = 101 generan el síndrome `sindrome[2:0]` = 101, que correctamente identifica la posición del error.
 El subsistema de corrección funciona adecuadamente, recuperando los datos originales como `data_corrected[3:0]` = 1101, que se muestra invertido en los LEDs como `led[3:0]` = 0010. El sistema de visualización alterna entre mostrar el síndrome y el dato corregido a través de los segmentos `seg[6:0]`, que cambian entre 0100001 y 0000010 según el estado del botón.
 La simulación confirma que el codificador genera correctamente los bits de paridad para la palabra de entrada, el subsistema de detección de errores identifica adecuadamente el síndrome (101 = 5), el módulo de corrección de errores repara con éxito el error en la palabra recibida, y el sistema de display de 7 segmentos muestra correctamente el síndrome o los datos corregidos según la entrada del botón.
 
+
+
 ## 4. Consumo de recursos
 Sobre el archivo synthesis_tangnano9k.log se obtuvieron las siguientes características:
 
+<div align="center">
+
 ![recursos](https://github.com/MelanieEH01/Images_README/blob/8b9b8ad17e5045fb8d3993f3d5fcc7a86c7c3dcd/Proyecto_1/recursos.png)
+
+</div>
 
 El informe de síntesis para el top_module revela un consumo de 303 células lógicas distribuidas entre diferentes tipos de look-up tables (LUTs). La mayor parte del consumo corresponde a LUT4 con 137 unidades, seguido por MUX2_LUT5 con 72 unidades. El resto de recursos se distribuye entre otros tipos de LUTs, incluidos MUX2_LUT6 (36 unidades), MUX2_LUT7 (18 unidades) y MUX2_LUT8 (7 unidades). Adicionalmente, el diseño utiliza elementos de interfaz: 12 buffers de entrada (IBUF) para manejar las señales provenientes de los interruptores y botones, y 13 buffers de salida (OBUF) para controlar los LEDs y displays de 7 segmentos.
 La conectividad del diseño muestra un total de 288 cables con 338 bits de cables, todos ellos clasificados como públicos. Estos recursos representan las interconexiones necesarias para comunicar los diferentes módulos del sistema, como el codificador, decodificador, detector de errores y corrector de errores. El número relativamente alto de conexiones refleja la naturaleza modular del diseño, donde cada componente realiza una función específica en el proceso de detección y corrección.
 Un aspecto destacable del diseño es la ausencia total de elementos de memoria, con cero memorias y cero bits de memoria utilizados. Esto confirma que la implementación es completamente combinacional, procesando las entradas y generando las salidas sin necesidad de almacenar estados intermedios. Esta característica es coherente con la naturaleza del código Hamming implementado, que permite la detección y corrección de errores mediante operaciones lógicas directas sin requerir elementos secuenciales.
 La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más complejas del diseño están relacionadas con la decodificación para los displays de 7 segmentos y los circuitos de corrección de errores.
 
+
+
 ## 5. Problemas encontrados durante el proyecto
 Durante la realización del proyecto hubo múltiples dificultades que condicionaron el desarrollo de cada una de las fases de este. Lo principal fue la curva de aprendizaje que conlleva aprender a programar en un nuevo lenguaje y que, además, es HDL, cuando únicamente se había trabajado con lenguajes de software. La solución para esto fue buscar recursos en internet, vídeos y el uso del libro de texto, así como la ayuda del asistente del curso. Algo nuevo del proyecto fue el uso de una FPGA, esto presentó un reto ya que en cursos anteriores no se había utilizado nada similar, así que de igual manera se tuvo que buscar cómo asignar las salidas a los pines y cómo poder manejar cada entrada del dispositivo.
 Hablando más sobre la parte del código, los módulos más complicados fueron el corrector del error y el display hacia los siete segmentos. El corrector presentaba muchas fallas durante la fase de prueba ya que el análisis no se estaba haciendo de manera correcta entonces cuando se inducía un error no siempre se corregía y empezaba a dar errores en la salida de los leds. Se probaron múltiples métodos de comparación de palabras hasta que se llegó al código definitivo que permitió corregir el error. Con respecto a los displays de siete segmentos, el hecho de entender de qué manera enviar la señal para hacerle entender a cada display cuáles leds debía de encender presentó una alta dificultad. Esto se pudo solucionar creando un decodificador por medio de muxes 2:1 que asigna una salida específica a cada led de acuerdo con el número binario recibido. De igual manera se realizó el módulo decodificador para el síndrome. 
 Finalmente, un problema que no se pudo resolver fue el hacer que los displays tuvieran un refresco de tal manera que se diera la ilusión de que cada uno mostraba una señal distinta. Se terminó utilizando un botón que alternaba el encendido de cada display, donde uno muestra el valor del síndrome y el otro el valor de la palabra transmitida en notación hexadecimal. 
+
 
 
 #
@@ -659,7 +837,11 @@ En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retras
 
 ## Resultados para un Oscilador de 5 Inversores
 
+<div align="center">
+
 ![5inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/5inv.jpg)
+
+</div>
 
 Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
 
@@ -685,7 +867,11 @@ $$\text{Porcentaje Error} = 1.124 $$
 
 ## Resultados para un Oscilador de 3 Inversores
 
+<div align="center">
+
 ![3inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv.PNG)
+
+</div>
 
 Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22,47 MHz. Comparando este valor con la frecuencia teórica, podemos determinar el porcentaje de error:
 
@@ -702,13 +888,19 @@ $$t_p = \frac{1}{2 \times 3 \times 23.28\text{ MHz}} = 7.16\text{ns} $$
 Teniendo como porcentaje de error:
 
 $$\text{Porcentaje Error} = \left|\frac{7.16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%$$
+
 $$\text{Porcentaje Error} = 10.5 $$
 
 Este error del 10.5% indica que los inversores en el circuito real son ligeramente más rápidos que lo predicho por el modelo teórico. Esta diferencia puede atribuirse a variaciones en el proceso de fabricación, condiciones de operación como temperatura y voltaje, o simplemente a la incertidumbre en los modelos simplificados utilizados para los cálculos teóricos.
 
 ### Cable de 1 Metro
 
+<div align="center">
+
 ![3inv_cable](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv_cable.PNG)
+
+</div>
+
 
 Al introducir un cable de 1 metro en el oscilador de anillo, se observa un impacto significativo en el comportamiento del circuito. El tiempo de retardo promedio experimenta un cambio:
 
@@ -720,7 +912,11 @@ Esta carga capacitiva e inductiva, combinada con la resistencia óhmica del cond
 
 ## Resultados para un Oscilador de 1 Inversor
 
+<div align="center">
+
 ![1inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/1inv.PNG)
+
+</div>
 
 En la configuración con un único inversor, se presenta un fenómeno particular donde la entrada y salida comparten el mismo nodo, impidiendo la oscilación correcta del circuito. Esta disposición imposibilita que la señal complete un ciclo de oscilación adecuado, ya que el inversor no recibe cambios suficientemente rápidos en su entrada.
 Como resultado, el dispositivo queda atrapado en una zona intermedia (aproximadamente 1V) conocida como estado metaestable, en la cual el circuito no puede definirse claramente entre los estados lógicos alto y bajo. Este comportamiento demuestra la necesidad fundamental de incorporar un número impar de inversores mayor a uno para conseguir un oscilador de anillo funcional que pueda mantener oscilaciones sostenidas.

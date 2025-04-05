@@ -644,19 +644,10 @@ Donde:
 
 En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns. Utilizando este valor, podemos estimar las frecuencias teóricas esperadas para diferentes configuraciones:
 
-\begin{table}[htbp]
-    \centering
-    \caption{Estimación de Frecuencias Teóricas}
-    \begin{tabular}{|c|c|c|}
-        \hline
-        Número de inversores (N) & Frecuencia (f) \\
-        \hline
-        5 & 3\\
-        25MHz & 41,7MHz\\
-        \hline
-    \end{tabular}
-    \label{tab:teorico}
-\end{table}
+| Número de Inversores (N) | Frecuencia (f) |
+|:------------------------:|:--------------:|
+| 3 | 41.7 MHz |
+| 5 | 25 MHz |
 
 ### Resultados para un Oscilador de 5 Inversores
 

@@ -661,7 +661,7 @@ Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una fr
 
 $$\text{Porcentaje Error} = \left|\frac{12.35 \text{ MHz} - 12.5 \text{ MHz}}{12.5 \text{ MHz}}\right| \times 100\% = 1.2\% $$
 
-$$\text{Porcentaje Error} = 1.2\% $$
+$$\text{Porcentaje Error} = 1.2 \text{ \% } $$
 
 Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
 

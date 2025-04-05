@@ -599,6 +599,7 @@ Este testbench es utilizado para validar el funcionamiento del sistema completo 
 
 ###### GTKWave (Simulación)
 ![gtkwave](https://github.com/MelanieEH01/Images_README/blob/a1d6a3e67e6efc2735f0b7363bf65a42678b4916/Proyecto_1/gtkwave.png)
+
 A partir de la imagen de GTKWave, se puede rastrear el flujo de señales a través del sistema. 
 Se explicará el primer ejemplo, la entrada original es `switch_input[3:0]` = 1101 (13 en decimal), que se codifica como `encoded_word[6:0]` = 1100110 con bits de paridad originales `parity_original[2:0]` = 000. En la simulación, se introduce un error, resultando en `switch_error[6:0] = 1110110`, con una diferencia en el bit 5. Los bits de paridad recalculados `parity_error[2:0]` = 101 generan el síndrome `sindrome[2:0]` = 101, que correctamente identifica la posición del error.
 El subsistema de corrección funciona adecuadamente, recuperando los datos originales como `data_corrected[3:0]` = 1101, que se muestra invertido en los LEDs como `led[3:0]` = 0010. El sistema de visualización alterna entre mostrar el síndrome y el dato corregido a través de los segmentos `seg[6:0]`, que cambian entre 0100001 y 0000010 según el estado del botón.
@@ -616,6 +617,5 @@ La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más
 ## 5. Problemas encontrados durante el proyecto
 
 
-#
 # Oscilador en anillo
 

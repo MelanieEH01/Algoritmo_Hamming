@@ -620,4 +620,28 @@ La concentración de recursos en LUT4 y MUX2_LUT5 sugiere que las funciones más
 
 #
 # Oscilador en anillo
+Un oscilador de anillo consiste en una cadena de inversores conectados en serie, con la salida del último inversor retroalimentada a la entrada del primero. Esta configuración genera una oscilación autosostenida cuya frecuencia depende del número de inversores y sus características.
+
+Para un oscilador de anillo compuesto por $N$ inversores, donde cada inversor introduce un tiempo de retraso medio $t_p$ (gate delay), el período total de oscilación viene dado por:
+$$T = 2 \times N \times t_p$$
+
+Donde:
+- $T$ es el periodo
+- $N$ es el número de inversores
+- $t_p$ es el tiempo de retraso por inversor
+
+Esta ecuación surge porque la señal debe atravesar la cadena completa de $N$ inversores dos veces para completar un ciclo de oscilación: una vez para la transición de bajo a alto y otra para la transición de alto a bajo.
+
+Ahora como lo que vamos a obtener son frecuenciasde oscilación se utiliza la relación:
+
+$$f = \frac{1}{2 \times N \times t_p}$$
+
+Donde:
+- $f$ es la frecuencia en Hz
+- $N$ es el número de inversores
+- $t_p$ es el tiempo de retraso por inversor
+
+En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns.
+
+### Resultados para un Oscilador de 5 Inversores
 

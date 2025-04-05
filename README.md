@@ -653,15 +653,15 @@ En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retras
 | 3 | 20,83 MHz |
 | 5 | 12,5 MHz |
 
-### Resultados para un Oscilador de 5 Inversores
+## Resultados para un Oscilador de 5 Inversores
 
 ![5inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/5inv.jpg)
 
 Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 12,35 MHz. Comparando este valor con la frecuencia teórica calculada, podemos determinar el porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{12.35 \text{ MHz} - 12.5 \text{ MHz}}{12.5 \text{ MHz}}\right| \times 100\% = 1.2\% $$
+$$\text{Porcentaje Error} = \left|\frac{12.35 \text{ MHz} - 12.5 \text{ MHz}}{12.5 \text{ MHz}}\right| \times 100\% $$
 
-$$\text{Porcentaje Error} = 1.2% $$
+$$\text{Porcentaje Error} = 1.2/% $$
 
 Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
 
@@ -673,16 +673,21 @@ $$t_p = \frac{1}{2 \times 5 \times 12.35\text{ MHz}}= 8.09\text{ ns} $$
 
 Teniendo como porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{8.09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\% = 1.124%$$
+$$\text{Porcentaje Error} = \left|\frac{8.09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\%$$
+
+$$\text{Porcentaje Error} = 1.124/% $$
 
 
-### Resultados para un Oscilador de 3 Inversores
+
+## Resultados para un Oscilador de 3 Inversores
 
 ![3inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv.PNG)
 
 Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una frecuencia de oscilación de 22,47 MHz. Comparando este valor con la frecuencia teórica, podemos determinar el porcentaje de error:
 
-$$\text{Porcentaje Error} = \left|\frac{22.47\text{ MHz} - 20.83 \text{ MHz}}{20.83 \text{ MHz}}\right| \times 100= 7.87\%$$
+$$\text{Porcentaje Error} = \left|\frac{22.47\text{ MHz} - 20.83 \text{ MHz}}{20.83 \text{ MHz}}\right| \times 100$$
+
+$$\text{Porcentaje Error} = 7.87/% $$
 
 Este porcentaje indica una buena correspondencia entre la predicción teórica y el comportamiento real del circuito, considerando las variaciones típicas en los parámetros de fabricación.
 
@@ -692,10 +697,12 @@ $$t_p = \frac{1}{2 \times 3 \times 23.28\text{ MHz}} = 7.16\text{ns} $$
 
 Teniendo como porcentaje de error:
 
-$$\text{Porcentaje Error} = {\left|\frac{7.16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%} = 1.124%$$
+$$\text{Porcentaje Error} = \left|\frac{7.16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%$$
+$$\text{Porcentaje Error} = 10.5/% $$
 
+Este error del 10.5% indica que los inversores en el circuito real son ligeramente más rápidos que lo predicho por el modelo teórico. Esta diferencia puede atribuirse a variaciones en el proceso de fabricación, condiciones de operación como temperatura y voltaje, o simplemente a la incertidumbre en los modelos simplificados utilizados para los cálculos teóricos.
 
-#### Cable de 1 Metro
+### Cable de 1 Metro
 
 ![3inv_cable](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/3inv_cable.PNG)
 
@@ -707,7 +714,7 @@ La incorporación de un cable de 1 metro al oscilador de anillo produce un incre
 Esta carga capacitiva e inductiva, combinada con la resistencia óhmica del conductor, limita la corriente disponible para las transiciones de estado, ralentizando efectivamente la propagación de la señal a través del circuito. El resultado es un aumento en el tiempo total de retardo que disminuye la frecuencia máxima de oscilación, demostrando cómo incluso modificaciones aparentemente simples pueden afectar significativamente el comportamiento de circuitos digitales de alta velocidad.
 
 
-### Resultados para un Oscilador de 1 Inversor
+## Resultados para un Oscilador de 1 Inversor
 
 ![1inv](https://github.com/MelanieEH01/Images_README/blob/336b0be568b33c9bcd31902839239ee3b2bcb0ac/Proyecto_1/1inv.PNG)
 

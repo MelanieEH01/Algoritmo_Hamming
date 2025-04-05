@@ -648,10 +648,14 @@ Donde:
 
 En implementaciones típicas en tecnologías CMOS estándar, el tiempo de retraso medio por inversor ($t_p$) suele aproximarse a 8 ns [2]. Utilizando este valor, podemos estimar las frecuencias teóricas esperadas para diferentes configuraciones:
 
+<div align="center">
+
 | Número de Inversores (N) | Frecuencia (f) |
 |:------------------------:|:--------------:|
 | 3 | 20,83 MHz |
 | 5 | 12,5 MHz |
+
+</div>
 
 ## Resultados para un Oscilador de 5 Inversores
 
@@ -661,7 +665,7 @@ Para un oscilador de anillo con 5 inversores, se obtuvo experimentalmente una fr
 
 $$\text{Porcentaje Error} = \left|\frac{12.35 \text{ MHz} - 12.5 \text{ MHz}}{12.5 \text{ MHz}}\right| \times 100\% $$
 
-$$\text{Porcentaje Error} = 1.2/% $$
+$$\text{Porcentaje Error} = 1.2 $$
 
 Este bajo porcentaje de error indica una excelente correspondencia entre la predicción teórica y el comportamiento real del circuito.
 
@@ -675,7 +679,7 @@ Teniendo como porcentaje de error:
 
 $$\text{Porcentaje Error} = \left|\frac{8.09 \text{ns} - 8 \text{ ns}}{8 \text{ ns}}\right| \times 100\%$$
 
-$$\text{Porcentaje Error} = 1.124/% $$
+$$\text{Porcentaje Error} = 1.124 $$
 
 
 
@@ -687,7 +691,7 @@ Para un oscilador de anillo con 3 inversores, se obtuvo experimentalmente una fr
 
 $$\text{Porcentaje Error} = \left|\frac{22.47\text{ MHz} - 20.83 \text{ MHz}}{20.83 \text{ MHz}}\right| \times 100$$
 
-$$\text{Porcentaje Error} = 7.87/% $$
+$$\text{Porcentaje Error} = 7.87 $$
 
 Este porcentaje indica una buena correspondencia entre la predicción teórica y el comportamiento real del circuito, considerando las variaciones típicas en los parámetros de fabricación.
 
@@ -698,7 +702,7 @@ $$t_p = \frac{1}{2 \times 3 \times 23.28\text{ MHz}} = 7.16\text{ns} $$
 Teniendo como porcentaje de error:
 
 $$\text{Porcentaje Error} = \left|\frac{7.16 \text{ns} - 8 \text{ ns}}{8 \text{ns}}\right| \times 100\%$$
-$$\text{Porcentaje Error} = 10.5/% $$
+$$\text{Porcentaje Error} = 10.5 $$
 
 Este error del 10.5% indica que los inversores en el circuito real son ligeramente más rápidos que lo predicho por el modelo teórico. Esta diferencia puede atribuirse a variaciones en el proceso de fabricación, condiciones de operación como temperatura y voltaje, o simplemente a la incertidumbre en los modelos simplificados utilizados para los cálculos teóricos.
 
